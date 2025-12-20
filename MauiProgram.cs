@@ -15,9 +15,10 @@ namespace MyJournal
                 });
 
             builder.Services.AddMauiBlazorWebView();
+            builder.Services.AddSingleton<MyJournal.Services.DatabaseService>();
 
 #if DEBUG
-    		builder.Services.AddBlazorWebViewDeveloperTools();
+            builder.Services.AddBlazorWebViewDeveloperTools();
     		builder.Logging.AddDebug();
 #endif
 

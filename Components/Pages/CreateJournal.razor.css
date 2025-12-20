@@ -1,0 +1,127 @@
+﻿/* Layout Container */
+.journal-editor-container {
+    display: flex;
+    gap: 30px;
+    height: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* LEFT: The Paper Sheet */
+.paper-sheet {
+    flex: 2;
+    background-color: white;
+    border-radius: 12px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.title-input {
+    width: 100%;
+    border: none;
+    font-size: 2rem;
+    font-family: 'Lora', serif;
+    color: var(--color-text, #333);
+    margin-bottom: 10px;
+    outline: none;
+    border-bottom: 2px solid transparent;
+}
+
+    .title-input:focus {
+        border-bottom: 2px solid #8FA885; /* Sage Green */
+    }
+
+.date-display {
+    color: #888;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.content-area {
+    width: 100%;
+    flex: 1;
+    border: none;
+    resize: none;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    outline: none;
+    font-family: 'Nunito', sans-serif;
+}
+
+/* RIGHT: Metadata Panel */
+.metadata-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.meta-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+}
+
+h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    color: #2F3E2E;
+}
+
+/* Mood Grid */
+.mood-selector {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.mood-btn {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+    .mood-btn:hover {
+        background-color: #f0f7ef;
+        border-color: #8FA885;
+    }
+
+    .mood-btn.selected {
+        background-color: #8FA885;
+        color: white;
+        border-color: #8FA885;
+    }
+
+.input-field {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.action-area {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 2px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    color: #666;
+    cursor: pointer;
+}

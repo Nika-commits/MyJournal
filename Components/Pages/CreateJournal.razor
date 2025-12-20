@@ -1,0 +1,57 @@
+﻿@page "/createJournal"
+@using MyJournal.Components.Models
+
+<div class="journal-editor-container">
+    
+    <div class="paper-sheet">
+        <div class="sheet-header">
+            <input type="text" 
+                   @bind="CurrentEntry.Title" 
+                   class="title-input" 
+                   placeholder="Title..." />
+            
+            <div class="date-display">
+                 @CurrentEntry.EntryDate.ToString("MMMM dd, yyyy")
+            </div>
+        </div>
+
+        <textarea @bind="CurrentEntry.Content" 
+                  class="content-area" 
+                  placeholder="Write your thoughts here...">
+        </textarea>
+    </div>
+
+    <div class="metadata-panel">
+        
+        <div class="meta-card">
+            <h4>How are you feeling?</h4>
+            <div class="mood-selector">
+                @foreach (var mood in MoodOptions)
+                {
+                    <button class="mood-btn @(CurrentEntry.Mood == mood ? "selected" : "")"
+                            @onclick="() => SetMood(mood)">
+                        @GetMoodEmoji(mood) @mood
+                    </button>
+                }
+            </div>
+        </div>
+
+        <div class="meta-card">
+            <h4>Tags</h4>
+            <input type="text" 
+                   @bind="CurrentEntry.Tags" 
+                   class="input-field" 
+                   placeholder="e.g. Work, Gym" />
+        </div>
+
+        <div class="action-area">
+            <button class="btn-primary full-width" @onclick="SaveEntry">
+                Save
+            </button>
+            <button class="btn-secondary full-width" @onclick="Cancel">
+                Cancel
+            </button>
+        </div>
+
+    </div>
+</div>

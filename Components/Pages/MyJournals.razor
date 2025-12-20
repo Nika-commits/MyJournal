@@ -1,0 +1,47 @@
+﻿@page "/myJournals"
+@using MyJournal.Components.Models
+
+<div class="page-container">
+    <div class="header-section">
+        <h2>My Journals</h2>
+        <a href="createJournal" class="btn-add">
+            + New Entry
+        </a>
+    </div>
+
+    @if (JournalList == null || JournalList.Count == 0)
+    {
+        <div class="empty-state">
+            <div class="empty-icon">📝</div>
+            <h3>No entries yet</h3>
+            <p>Your journal is waiting for your first story.</p>
+            <a href="createJournal" class="btn-primary">Write First Entry</a>
+        </div>
+    }
+    else
+    {
+        <div class="journal-grid">
+            @foreach (var entry in JournalList)
+            {
+                <div class="journal-card">
+                    <div class="card-top">
+                        <span class="entry-date">@entry.EntryDate.ToString("MMM dd")</span>
+                        <span class="mood-emoji" title="@entry.Mood">@GetMoodEmoji(entry.Mood)</span>
+                    </div>
+
+                    <h3 class="entry-title">@entry.Title</h3>
+                    <p class="entry-preview">
+                        @(entry.Content?.Length > 100 ? entry.Content.Substring(0, 100) + "..." : entry.Content)
+                    </p>
+
+                    <div class="card-footer">
+                        <span class="tags">@entry.Tags</span>
+                        <button class="btn-delete" @onclick="() => DeleteEntry(entry)">
+                            🗑️
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
