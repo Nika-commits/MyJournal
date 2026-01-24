@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using MyJournal.Components.Models;
 using MyJournal.Services;
 
 namespace MyJournal.Components.Pages
 {
-    // FIX 2: Class name matches filename exactly (Singular)
     public partial class CreateJournal : ComponentBase
     {
-        // FIX 3: Add '= default!;' to stop the "Non-nullable" warnings
         [Inject]
         public DatabaseService DbService { get; set; } = default!;
 
@@ -19,10 +18,21 @@ namespace MyJournal.Components.Pages
         public List<string> MoodOptions = ["Happy", "Excited", "Calm", "Sad", "Stressed", "Angry"];
         protected override void OnInitialized()
         {
-            // FIX 1: This works now because we updated the Model
             CurrentEntry.EntryDate = DateTime.Today;
         }
 
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                await JS.InvokeVoidAsync("initQuill", "editor-container");
+
+                if (!string.IsNullOrEmpty(CurrentEntry.Content))
+                {
+                    await JS.InvokeVoidAsync("setQuillHtml", CurrentEntry.Content);
+                }
+            }
+        }
         public static string GetMoodEmoji(string mood) => mood switch
         {
             "Happy" => "😊",
@@ -44,7 +54,7 @@ namespace MyJournal.Components.Pages
             if (string.IsNullOrWhiteSpace(CurrentEntry.Title))
                 return;
 
-            CurrentEntry.CreatedAt = DateTime.UtcNow;
+            CurrentEntry.EntryDate = DateTime.UtcNow;
             CurrentEntry.UpdatedAt = DateTime.UtcNow;
 
             await DbService.SaveJournalAsync(CurrentEntry);

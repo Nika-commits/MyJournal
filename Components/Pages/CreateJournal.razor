@@ -1,6 +1,9 @@
 ﻿@page "/createJournal"
 @using MyJournal.Components.Models
 
+@inject IJSRuntime JS;
+
+
 <div class="journal-editor-container">
     
     <div class="paper-sheet">
@@ -15,14 +18,15 @@
             </div>
         </div>
 
-        <textarea @bind="CurrentEntry.Content" 
+      @*   <textarea @bind="CurrentEntry.Content" 
                   class="content-area" 
                   placeholder="Write your thoughts here...">
-        </textarea>
+        </textarea> *@
+
+        <div id="editor-container"></div>
     </div>
 
     <div class="metadata-panel">
-        
         <div class="meta-card">
             <h4>How are you feeling?</h4>
             <div class="mood-selector">

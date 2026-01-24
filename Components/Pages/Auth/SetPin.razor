@@ -1,0 +1,27 @@
+﻿@inject IAuthService Auth
+@using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons
+
+<div class="auth-container">
+    <div class="auth-card">
+        <FluentIcon Value="@(new Icons.Regular.Size32.Key())" Color="Color.Accent" />
+        <h3>Set Your PIN</h3>
+        <p class="auth-subtitle">Create a 4-digit PIN to secure your entries</p>
+
+        <FluentTextField TextFieldType="TextFieldType.Password"
+                         @bind-Value="pin"
+                         MaxLength="4"
+                         Placeholder="Enter PIN"
+                         Class="auth-input" />
+
+        <FluentButton Appearance="Appearance.Accent"
+                      OnClick="SavePin"
+                      Class="auth-btn">
+            Set PIN
+        </FluentButton>
+
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <p class="validation-message">@errorMessage</p>
+        }
+    </div>
+</div>

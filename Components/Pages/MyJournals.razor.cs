@@ -36,7 +36,7 @@ namespace MyJournal.Components.Pages
         // Feature: Delete an entry
         public async Task DeleteEntry(Journal entry)
         {
-            bool confirm = await Application.Current!.MainPage!.DisplayAlert(
+            bool confirm = await Application.Current!.MainPage!.DisplayAlertAsync(
                 "Delete Entry",
                 "Are you sure you want to delete this?",
                 "Yes",

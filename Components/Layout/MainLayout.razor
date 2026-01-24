@@ -1,11 +1,18 @@
 ﻿@inherits LayoutComponentBase
+@using MyJournal.Components.Pages.Auth
+    <FluentToastProvider />
+    <FluentDialogProvider />
+    <FluentTooltipProvider />
+    <FluentMessageBarProvider />
+    <FluentMenuProvider />
 
+<AuthGuard>
 <div class="page">
     <div class="sidebar">
         <NavMenu />
     </div>
-
     <main class="content">
         @Body
     </main>
 </div>
+</AuthGuard>

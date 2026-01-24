@@ -1,5 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
-
+using Microsoft.FluentUI.AspNetCore.Components;
+using MyJournal.Services;
+using MyJournal.Components.Models;
+using MyJournal.Services.AuthService;
 namespace MyJournal
 {
     public static class MauiProgram
@@ -15,7 +18,12 @@ namespace MyJournal
                 });
 
             builder.Services.AddMauiBlazorWebView();
+            builder.Services.AddFluentUIComponents();
             builder.Services.AddSingleton<MyJournal.Services.DatabaseService>();
+            builder.Services.AddScoped<AuthSession>();
+            builder.Services.AddSingleton<IAuthService, AuthService>();
+
+
 
 #if DEBUG
             builder.Services.AddBlazorWebViewDeveloperTools();

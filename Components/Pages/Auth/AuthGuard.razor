@@ -1,0 +1,18 @@
+﻿@inject IAuthService Auth
+@inject AuthSession Session
+
+@if (!Session.IsUnlocked)
+{
+    if (!isPinSet)
+    {
+        <SetPin OnSuccess="OnPinCreated" />
+    }
+    else
+    {
+        <UnlockPin OnSuccess="Unlock" />
+    }
+}
+else
+{
+    @ChildContent
+}
