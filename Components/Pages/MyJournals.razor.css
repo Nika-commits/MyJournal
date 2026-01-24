@@ -14,6 +14,51 @@
     margin-bottom: 30px;
 }
 
+.filter-section {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+    align-items: center;
+}
+
+.search-box {
+    position: relative;
+    flex-grow: 1; /* Takes up remaining space */
+}
+
+    .search-box input {
+        width: 100%;
+        padding: 12px 12px 12px 40px; /* Space for the magnifying glass */
+        border: 1px solid #dcdcdc;
+        border-radius: 8px;
+        background-color: var(--color-white);
+        font-family: 'Nunito', sans-serif;
+        color: var(--color-text);
+    }
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.5;
+}
+
+.mood-filter {
+    padding: 12px;
+    border: 1px solid #dcdcdc;
+    border-radius: 12px;
+    background-color: var(--color-white);
+    color: var(--color-text);
+    cursor: pointer;
+}
+
+    /* Add focus states for accessibility/UX */
+    .search-box input:focus, .mood-filter:focus {
+        outline: 2px solid var(--color-primary);
+        border-color: transparent;
+    }
+
 h2 {
     font-family: 'Lora', serif;
     color: #2F3E2E;

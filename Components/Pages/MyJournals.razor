@@ -9,6 +9,26 @@
             + New Entry
         </a>
     </div>
+    <div class="filter-section">
+    <div class="search-box">
+        <input type="text" 
+               placeholder="Search Journals..." 
+               @bind="searchTerm" 
+               @bind:event="oninput" 
+               @onkeyup="ExecuteSearch" /> 
+               @* @onkeyup makes it search instantly while typing *@
+    </div>
+
+    <select class="mood-filter" @onchange="OnMoodChanged">
+        <option value="All">All Moods</option>
+        <option value="Happy">😊 Happy</option>
+        <option value="Excited">🤩 Excited</option>
+        <option value="Calm">😌 Calm</option>
+        <option value="Sad">😢 Sad</option>
+        <option value="Stressed">😫 Stressed</option>
+        <option value="Angry">😡 Angry</option>
+    </select>
+</div>
 
     @if (JournalList == null || JournalList.Count == 0)
     {

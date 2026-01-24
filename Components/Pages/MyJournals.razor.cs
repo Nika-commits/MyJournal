@@ -18,9 +18,22 @@ namespace MyJournal.Components.Pages
 
         private Journal? entryToDelete;
 
+        private string searchTerm = string.Empty;
+        private string selectedMood = "All";
         protected override async Task OnInitializedAsync()
         {
             await LoadJournals();
+        }
+
+        private async Task ExecuteSearch()
+        {
+            JournalList = await DbService.SearchJournalsAsync(searchTerm, selectedMood);
+        }
+
+        private async Task OnMoodChanged(ChangeEventArgs e)
+        {
+            selectedMood = e.Value?.ToString() ?? "All";
+            await ExecuteSearch();
         }
 
         private async Task LoadJournals()
@@ -30,10 +43,10 @@ namespace MyJournal.Components.Pages
 
         public string GetPreview(string content)
         {
-            if(string.IsNullOrWhiteSpace(content)) return string.Empty;
+            if (string.IsNullOrWhiteSpace(content)) return string.Empty;
 
             var plainText = System.Text.RegularExpressions.Regex.Replace(content, "<.*?>", string.Empty);
-            return plainText.Length >100 ? plainText.Substring(0, 100) + "..." : plainText;
+            return plainText.Length > 100 ? plainText.Substring(0, 100) + "..." : plainText;
         }
 
 

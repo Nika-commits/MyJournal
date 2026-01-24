@@ -26,3 +26,7 @@
     border-radius: 10px;
     width: 420px;
 }
+.modal-footer{
+    display:flex;
+    gap:20px;
+}

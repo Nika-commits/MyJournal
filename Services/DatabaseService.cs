@@ -38,14 +38,21 @@ namespace MyJournal.Services
             return await _database!.InsertOrReplaceAsync(item);
         }
 
-        public async Task<List<Journal>> SearchJournalsAsync(string keyword)
+        public async Task<List<Journal>> SearchJournalsAsync(string keyword, string? selectedMood =null)
         {
             await InitAsync();
-            return await _database!.Table<Journal>()
-                .Where(j => j.Title.Contains(keyword) || j.Content.Contains(keyword))
-                .OrderByDescending(j => j.EntryDate)
-                .ToListAsync();
+            var query = _database!.Table<Journal>();
+            if(!string.IsNullOrWhiteSpace(keyword))
+                {
+                query = query.Where(j => j.Title.Contains(keyword) || j.Content.Contains(keyword));
+            }
+            if(!string.IsNullOrWhiteSpace(selectedMood) && selectedMood != "All")
+            {
+                query = query.Where(j => j.Mood == selectedMood);
+            }
+            return await query.OrderByDescending(j => j.EntryDate).ToListAsync();
         }
+
         public async Task<Journal> GetEntryByDateAsync(DateTime date)
         {
             await InitAsync();
