@@ -51,8 +51,12 @@ namespace MyJournal.Components.Pages
 
         public async Task SaveEntry()
         {
-            if (string.IsNullOrWhiteSpace(CurrentEntry.Title))
-                return;
+            if (string.IsNullOrWhiteSpace(CurrentEntry.Title)) return;
+
+            var HtmlContent = await JS.InvokeAsync<string>("getQuillHtml");
+
+            var existing = await DbService.GetEntryByDateAsync(CurrentEntry.EntryDate);
+            if (existing != null && existing.Id != CurrentEntry.Id) return;
 
             CurrentEntry.EntryDate = DateTime.UtcNow;
             CurrentEntry.UpdatedAt = DateTime.UtcNow;

@@ -1,0 +1,29 @@
+﻿
+@if (IsVisible)
+{
+    <div class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>@Title</h3>
+            </div>
+            <div class="modal-body">
+                @if (ChildContent is not null)
+                {
+                    @ChildContent
+                }
+                else
+                {
+                    <p>@Message</p>
+                }
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" @onclick="() => OnClose.InvokeAsync(false)">
+                    @CancelButtonText
+                </button>
+                <button class="btn-@Type" @onclick="() => OnClose.InvokeAsync(true)">
+                    @ConfirmButtonText
+                </button>
+            </div>
+        </div>
+    </div>
+}

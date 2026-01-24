@@ -12,17 +12,36 @@ namespace MyJournal.Components.Pages
         [Inject]
         public NavigationManager NavManager { get; set; } = default!;
 
-        // The list that holds our data
         public List<Journal> JournalList { get; set; } = new();
+
+        private bool showDeleteDialog = false;
+
+        private Journal? entryToDelete;
 
         protected override async Task OnInitializedAsync()
         {
-            // Fetch data from SQLite
+            await LoadJournals();
+        }
+
+        private async Task LoadJournals()
+        {
             JournalList = await DbService.GetJournalsAsync();
         }
 
-        // Helper to convert mood text to emoji
-        public string GetMoodEmoji(string mood) => mood switch
+        public string GetPreview(string content)
+        {
+            if(string.IsNullOrWhiteSpace(content)) return string.Empty;
+
+            var plainText = System.Text.RegularExpressions.Regex.Replace(content, "<.*?>", string.Empty);
+            return plainText.Length >100 ? plainText.Substring(0, 100) + "..." : plainText;
+        }
+
+
+        public void EditEntry(Journal entry)
+        {
+            NavManager.NavigateTo($"/createJournal/{entry.Id}");
+        }
+        public string GetMoodEmoji(string? mood) => mood switch
         {
             "Happy" => "😊",
             "Excited" => "🤩",
@@ -33,21 +52,21 @@ namespace MyJournal.Components.Pages
             _ => "😐"
         };
 
-        // Feature: Delete an entry
-        public async Task DeleteEntry(Journal entry)
+        public void RequestDeleteEntry(Journal entry)
         {
-            bool confirm = await Application.Current!.MainPage!.DisplayAlertAsync(
-                "Delete Entry",
-                "Are you sure you want to delete this?",
-                "Yes",
-                "No");
+            entryToDelete = entry;
+            showDeleteDialog = true;
+        }
 
-            if (confirm)
+        public async Task HandleDeleteResult(bool confirmed)
+        {
+            showDeleteDialog = false;
+            if (confirmed && entryToDelete != null)
             {
-                await DbService.DeleteJournalAsync(entry);
-                // Refresh the list
-                JournalList = await DbService.GetJournalsAsync();
+                await DbService.DeleteJournalAsync(entryToDelete.Id);
+                await LoadJournals();
             }
+            entryToDelete = null;
         }
     }
 }

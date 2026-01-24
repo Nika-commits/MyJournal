@@ -8,6 +8,7 @@ window.initQuill = (editorId) => {
                 ["bold", "italic", "underline", "strike"],
                 [{ 'header': 1 }, { 'header': 2 }],
                 [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                ['image', 'link'],
                 ["clean"]
             ]
         }

@@ -1,45 +1,59 @@
-﻿using MyJournal.Components.Models; 
+﻿using MyJournal.Components.Models;
 using SQLite;
 
 namespace MyJournal.Services
 {
     public class DatabaseService
     {
-        private SQLiteAsyncConnection? _database;
+        private SQLiteAsyncConnection _database;
+        private bool _initialized;
 
-        async Task Init()
+        private async Task InitAsync()
         {
-            if (_database is not null)
-                return;
+            if (_initialized) return;
 
-            var dbPath = Path.Combine(FileSystem.AppDataDirectory, "MyJournal.db3");
+            string dbPath = Path.Combine(FileSystem.AppDataDirectory, "MyJournalDatabase.db");
 
-            _database = new SQLiteAsyncConnection(dbPath,
-                SQLiteOpenFlags.ReadWrite |
-                SQLiteOpenFlags.Create |
-                SQLiteOpenFlags.SharedCache);
+            _database = new SQLiteAsyncConnection(dbPath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.SharedCache);
+            _initialized = true;
 
             await _database.CreateTableAsync<Journal>();
+
         }
 
         public async Task<List<Journal>> GetJournalsAsync()
         {
-            await Init();
-            return await _database!.Table<Journal>()
-                                  .OrderByDescending(x => x.EntryDate)
-                                  .ToListAsync();
+            await InitAsync();
+            return await _database!.Table<Journal>().OrderByDescending(j => j.EntryDate).ToListAsync();
         }
 
+        public async Task<int> DeleteJournalAsync(Guid id)
+        {
+            await InitAsync();
+            return await _database!.DeleteAsync<Journal>(id);
+        }
         public async Task<int> SaveJournalAsync(Journal item)
         {
-            await Init();
+            await InitAsync();
             return await _database!.InsertOrReplaceAsync(item);
         }
 
-        public async Task<int> DeleteJournalAsync(Journal item)
+        public async Task<List<Journal>> SearchJournalsAsync(string keyword)
         {
-            await Init();
-            return await _database!.DeleteAsync(item);
+            await InitAsync();
+            return await _database!.Table<Journal>()
+                .Where(j => j.Title.Contains(keyword) || j.Content.Contains(keyword))
+                .OrderByDescending(j => j.EntryDate)
+                .ToListAsync();
+        }
+        public async Task<Journal> GetEntryByDateAsync(DateTime date)
+        {
+            await InitAsync();
+            var start = date.Date;
+            var end = date.Date.AddDays(1);
+            return await _database!.Table<Journal>().Where(j => j.EntryDate >= start && j.EntryDate < end).FirstOrDefaultAsync();
         }
     }
+
+
 }

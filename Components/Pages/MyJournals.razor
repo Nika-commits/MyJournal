@@ -1,5 +1,6 @@
 ﻿@page "/myJournals"
 @using MyJournal.Components.Models
+@using MyJournal.Components.Shared
 
 <div class="page-container">
     <div class="header-section">
@@ -31,12 +32,13 @@
 
                     <h3 class="entry-title">@entry.Title</h3>
                     <p class="entry-preview">
-                        @(entry.Content?.Length > 100 ? entry.Content.Substring(0, 100) + "..." : entry.Content)
+                        @* @(entry.Content?.Length > 100 ? entry.Content.Substring(0, 100) + "..." : entry.Content) *@
+                        @((MarkupString)GetPreview(entry.Content))
                     </p>
 
                     <div class="card-footer">
                         <span class="tags">@entry.Tags</span>
-                        <button class="btn-delete" @onclick="() => DeleteEntry(entry)">
+                        <button class="btn-delete" @onclick="() => RequestDeleteEntry(entry)">
                             🗑️
                         </button>
                     </div>
@@ -45,3 +47,11 @@
         </div>
     }
 </div>
+
+<Dialog IsVisible="showDeleteDialog" 
+        Title="Confirm Deletion" 
+        Message="@($"Are you sure you want to delete '{entryToDelete?.Title}'?")"
+        ConfirmButtonText="Delete"
+        CancelButtonText="Cancel"
+        Type="danger" 
+        OnClose="HandleDeleteResult" />
