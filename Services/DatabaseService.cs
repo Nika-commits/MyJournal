@@ -78,6 +78,13 @@ namespace MyJournal.Services
             return await _database.Table<Journal>().Where(j => j.EntryDate >= startOfDay && j.EntryDate < endOfDay).FirstOrDefaultAsync();
         }
 
+        public async Task<List<DateTime>> GetEntryDatesAsync()
+        {
+            await InitAsync();
+            var journals = await _database!.Table<Journal>().ToListAsync();
+            return journals.Select(j => j.EntryDate.Date).ToList();
+        }
+
         public async Task<JournalStats> GetJournalStatsAsync()
         {
             await InitAsync();
@@ -130,15 +137,15 @@ namespace MyJournal.Services
             int maxStreak = 0;
             int tempStreak = 1;
 
-            for(int i =1; i < ascendingDates.Count; i++)
+            for (int i = 1; i < ascendingDates.Count; i++)
             {
-                if(ascendingDates[i] == ascendingDates[i - 1].AddDays(1))
+                if (ascendingDates[i] == ascendingDates[i - 1].AddDays(1))
                 {
                     tempStreak++;
                 }
                 else
                 {
-                    if(tempStreak > maxStreak)
+                    if (tempStreak > maxStreak)
                     {
                         maxStreak = tempStreak;
                     }

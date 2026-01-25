@@ -1,4 +1,41 @@
 ﻿@page "/calendar"
 
-<h3>Calendar</h3>
+<div class="calendar-page">
+    <div class="calendar-header">
+        <button class="nav-btn" @onclick="() => ChangeMonth(-1)">❮</button>
+        <h2>@displayDate.ToString("MMMM yyyy")</h2>
+        <button class="nav-btn" @onclick="() => ChangeMonth(1)">❯</button>
+    </div>
 
+    <div class="calendar-grid">
+        <div class="day-name">Sun</div>
+        <div class="day-name">Mon</div>
+        <div class="day-name">Tue</div>
+        <div class="day-name">Wed</div>
+        <div class="day-name">Thu</div>
+        <div class="day-name">Fri</div>
+        <div class="day-name">Sat</div>
+
+        @foreach (var day in calendarDays)
+        {
+            @if (day == null)
+            {
+                <div class="calendar-day empty"></div>
+            }
+            else
+            {
+                bool hasEntry = entryDates.Contains(day.Value.Date);
+                bool isToday = day.Value.Date == DateTime.Today;
+
+                <div class="calendar-day @(hasEntry ? "has-entry" : "") @(isToday ? "is-today" : "")"
+                     @onclick="() => HandleDateClick(day.Value)">
+                    <span class="day-number">@day.Value.Day</span>
+                    @if (hasEntry)
+                    {
+                        <div class="entry-dot"></div>
+                    }
+                </div>
+            }
+        }
+    </div>
+</div>

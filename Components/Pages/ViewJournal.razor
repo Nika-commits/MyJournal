@@ -38,7 +38,7 @@
             @if (!string.IsNullOrEmpty(Entry.Tags))
             {
                 <div class="tags-section">
-                    <span class="tag-icon">🏷️</span>
+                    <span class="">Tags: </span>
                     @foreach (var tag in Entry.Tags.Split(','))
                     {
                         <span class="tag-chip">@tag.Trim()</span>
@@ -48,7 +48,7 @@
         </div>
 
         <button class="btn-edit-floating" @onclick="GoToEdit" title="Edit this entry">
-            ✏️
+           Edit
         </button>
     }
 </div>
