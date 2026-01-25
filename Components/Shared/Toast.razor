@@ -1,12 +1,9 @@
 ﻿@using MyJournal.Services
 @implements IDisposable
-@inject ToastService ToastService
+@inject MyJournal.Services.ToastService ToastService
 
 <div class="toast-container @(IsVisible ? "toast-visible" : "")">
     <div class="toast-card @LevelClass">
-        <div class="toast-icon">
-            @Icon
-        </div>
         <div class="toast-message">
             @Message
         </div>
@@ -14,46 +11,3 @@
     </div>
 </div>
 
-@code {
-    private string Message { get; set; } = "";
-    private string LevelClass { get; set; } = "toast-success";
-    private string Icon { get; set; } = "✅";
-    private bool IsVisible { get; set; }
-
-    protected override void OnInitialized()
-    {
-        ToastService.OnShow += ShowToast;
-        ToastService.OnHide += HideToast;
-    }
-
-    private void ShowToast(string message, ToastLevel level)
-    {
-        Message = message;
-        LevelClass = $"toast-{level.ToString().ToLower()}";
-        Icon = level switch 
-        {
-            ToastLevel.Success => "✅",
-            ToastLevel.Error => "⚠️",
-            _ => "ℹ️"
-        };
-        IsVisible = true;
-        InvokeAsync(StateHasChanged);
-    }
-
-    private void HideToast()
-    {
-        IsVisible = false;
-        InvokeAsync(StateHasChanged);
-    }
-
-    private void Close()
-    {
-        IsVisible = false;
-    }
-
-    public void Dispose()
-    {
-        ToastService.OnShow -= ShowToast;
-        ToastService.OnHide -= HideToast;
-    }
-}

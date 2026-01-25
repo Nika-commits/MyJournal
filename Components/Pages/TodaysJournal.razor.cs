@@ -10,6 +10,7 @@ namespace MyJournal.Components.Pages
         [Inject] public DatabaseService DbService { get; set; } = default!;
 
         [Inject] public NavigationManager NavManager { get; set; } = default!;
+        [Inject] public ToastService Toast { get; set; } = default!;
 
         public Journal CurrentEntry { get; set; } = new Journal();
         public string StatusMessage { get; set; } = "";
@@ -73,9 +74,7 @@ namespace MyJournal.Components.Pages
             StatusMessage = $"Journal saved at {DateTime.Now:HH:mm}";
             StateHasChanged();
 
-            await Task.Delay(3000);
-            StatusMessage = "";
-            StateHasChanged();
+            Toast.ShowToast($"Saved at {DateTime.Now:HH:mm}");
         }
 
         public void Cancel()

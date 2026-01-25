@@ -1,5 +1,4 @@
-﻿using Android.Widget;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,11 +6,11 @@ namespace MyJournal.Services
 {
     public partial class ToastService : IDisposable
     {
-        public event Action<string, ToastLevel?> OnShow;
-        public event Action OnHide;
+        public event Action<string, ToastLevel>? OnShow;
+        public event Action? OnHide;
 
         public System.Timers.Timer? _countdown;
-        public void ShowToast(string message, ToastLevel? level = ToastLevel.Success)
+        public void ShowToast(string message, ToastLevel level = ToastLevel.Success)
         {
             OnShow?.Invoke(message, level);
             StartCountdown();
