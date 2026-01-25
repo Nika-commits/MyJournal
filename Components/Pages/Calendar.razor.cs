@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MyJournal.Services;
+using MyJournal.Components.Models;
 
 namespace MyJournal.Components.Pages
 {
@@ -9,55 +10,64 @@ namespace MyJournal.Components.Pages
         [Inject] public NavigationManager NavManager { get; set; } = default!;
 
         private DateTime displayDate = DateTime.Today;
-        private List<DateTime> entryDates = new();
+
+        // Dictionary makes looking up entries by date instant
+        private Dictionary<DateTime, JournalMetadata> entryMap = new();
         private List<DateTime?> calendarDays = new();
 
         protected override async Task OnInitializedAsync()
         {
-            await LoadCalendar();
+            await LoadData();
         }
 
-        private async Task LoadCalendar()
+        private async Task LoadData()
         {
-            entryDates = await DbService.GetEntryDatesAsync();
+            var rawList = await DbService.GetJournalMetadataAsync();
+
+            // Create a lookup dictionary: Key = Date (Midnight), Value = Data
+            entryMap = rawList.ToDictionary(k => k.EntryDate.Date, v => v);
+
             GenerateCalendar();
         }
 
         private void GenerateCalendar()
         {
             calendarDays.Clear();
-            var firstDayOfMonth = new DateTime(displayDate.Year, displayDate.Month, 1);
+            var firstDay = new DateTime(displayDate.Year, displayDate.Month, 1);
             var daysInMonth = DateTime.DaysInMonth(displayDate.Year, displayDate.Month);
 
-            // Calculate offset (0 for Sunday, 1 for Monday, etc.)
-            int dayOffset = (int)firstDayOfMonth.DayOfWeek;
+            // Adjust offset so grid starts correctly (0 = Sunday)
+            int offset = (int)firstDay.DayOfWeek;
 
-            // Fill empty slots for previous month
-            for (int i = 0; i < dayOffset; i++)
-            {
-                calendarDays.Add(null);
-            }
+            for (int i = 0; i < offset; i++) calendarDays.Add(null);
 
-            // Fill actual days
             for (int i = 1; i <= daysInMonth; i++)
             {
                 calendarDays.Add(new DateTime(displayDate.Year, displayDate.Month, i));
             }
         }
 
-        private async Task ChangeMonth(int increment)
+        private async Task ChangeMonth(int value)
         {
-            displayDate = displayDate.AddMonths(increment);
-            await LoadCalendar();
+            displayDate = displayDate.AddMonths(value);
+            GenerateCalendar();
         }
 
-        private void HandleDateClick(DateTime date)
+        private void OnDateClick(DateTime? date)
         {
-            if (entryDates.Contains(date.Date))
+            if (date == null) return;
+
+            // Check if we have an entry for this specific date
+            if (entryMap.ContainsKey(date.Value.Date))
             {
-                // Logic: If entry exists, we need the ID to view it. 
-                // Alternatively, search by date in the View page.
-                NavManager.NavigateTo($"/myJournals?searchDate={date:yyyy-MM-dd}");
+                var entry = entryMap[date.Value.Date];
+                // Navigate directly to the View Page using the GUID
+                NavManager.NavigateTo($"/viewJournal/{entry.Id}");
+            }
+            else if (date.Value.Date == DateTime.Today)
+            {
+                // Optional: If clicking Today but no entry exists, go to Create
+                NavManager.NavigateTo("/todaysJournal");
             }
         }
     }

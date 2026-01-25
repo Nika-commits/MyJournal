@@ -85,6 +85,19 @@ namespace MyJournal.Services
             return journals.Select(j => j.EntryDate.Date).ToList();
         }
 
+        public async Task<List<JournalMetadata>> GetJournalMetadataAsync()
+        {
+            await InitAsync();
+            var query = _database!.Table<Journal>();
+            var all = await query.ToListAsync();
+
+            return all.Select(j => new JournalMetadata
+            {
+                Id = j.Id,
+                EntryDate = j.EntryDate,
+                Mood = j.Mood
+            }).ToList();
+        }
         public async Task<JournalStats> GetJournalStatsAsync()
         {
             await InitAsync();
