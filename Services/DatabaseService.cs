@@ -32,11 +32,13 @@ namespace MyJournal.Services
             await InitAsync();
             return await _database!.DeleteAsync<Journal>(id);
         }
+
         public async Task<int> SaveJournalAsync(Journal item)
         {
             await InitAsync();
             return await _database!.InsertOrReplaceAsync(item);
         }
+
 
         public async Task<List<Journal>> SearchJournalsAsync(string keyword, string? selectedMood =null)
         {
@@ -60,6 +62,16 @@ namespace MyJournal.Services
             var end = date.Date.AddDays(1);
             return await _database!.Table<Journal>().Where(j => j.EntryDate >= start && j.EntryDate < end).FirstOrDefaultAsync();
         }
+
+        public async Task<Journal?> GetTodaysJournalAsync()
+        {
+            await InitAsync();
+            var Today = DateTime.UtcNow;
+            var Tommorow = Today.AddDays(1);
+
+            return await _database.Table<Journal>().Where(j => j.EntryDate >= Today && j.EntryDate < Tommorow).FirstOrDefaultAsync();
+        }
+     
     }
 
 

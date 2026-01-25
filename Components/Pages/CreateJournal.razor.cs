@@ -14,11 +14,23 @@ namespace MyJournal.Components.Pages
         public NavigationManager NavManager { get; set; } = default!;
 
         public Journal CurrentEntry { get; set; } = new Journal();
+        public string StatusMessage { get; set; } = "";
 
         public List<string> MoodOptions = ["Happy", "Excited", "Calm", "Sad", "Stressed", "Angry"];
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
-            CurrentEntry.EntryDate = DateTime.Today;
+            var existing = await DbService.GetTodaysJournalAsync();
+            if (existing != null) CurrentEntry = existing;
+            else
+            {
+                CurrentEntry = new Journal
+                {
+                    EntryDate = DateTime.Today,
+                    Id = Guid.NewGuid()
+                };
+
+
+            }
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
