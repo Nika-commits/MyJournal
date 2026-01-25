@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿
+
+using Microsoft.Extensions.Logging;
 using Microsoft.FluentUI.AspNetCore.Components;
 using MyJournal.Services;
 using MyJournal.Components.Models;
@@ -22,6 +24,7 @@ namespace MyJournal
             builder.Services.AddSingleton<MyJournal.Services.DatabaseService>();
             builder.Services.AddScoped<AuthSession>();
             builder.Services.AddSingleton<IAuthService, AuthService>();
+            builder.Services.AddScoped<MyJournal.Services.ToastService>();
 
 
 

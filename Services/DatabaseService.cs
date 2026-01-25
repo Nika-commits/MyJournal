@@ -66,10 +66,10 @@ namespace MyJournal.Services
         public async Task<Journal?> GetTodaysJournalAsync()
         {
             await InitAsync();
-            var Today = DateTime.UtcNow;
-            var Tommorow = Today.AddDays(1);
+            var startOfDay = DateTime.Today;
+            var endOfDay = startOfDay.AddDays(1);
 
-            return await _database.Table<Journal>().Where(j => j.EntryDate >= Today && j.EntryDate < Tommorow).FirstOrDefaultAsync();
+            return await _database.Table<Journal>().Where(j => j.EntryDate >= startOfDay && j.EntryDate < endOfDay).FirstOrDefaultAsync();
         }
      
     }

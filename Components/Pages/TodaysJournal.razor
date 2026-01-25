@@ -1,4 +1,4 @@
-﻿@page "/createJournal"
+﻿@page "/todaysjournal"
 @using MyJournal.Components.Models
 
 @inject IJSRuntime JS;
@@ -24,6 +24,16 @@
         </textarea> *@
 
         <div id="editor-container"></div>
+    </div>
+
+    <div class="metadata-panel">
+        @if(!string.IsNullOrEmpty(StatusMessage))
+        {
+            <div class="status-message">
+                @StatusMessage
+            </div>
+        }
+
     </div>
 
     <div class="metadata-panel">

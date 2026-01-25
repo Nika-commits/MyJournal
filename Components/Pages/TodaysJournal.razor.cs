@@ -5,13 +5,11 @@ using MyJournal.Services;
 
 namespace MyJournal.Components.Pages
 {
-    public partial class CreateJournal : ComponentBase
+    public partial class TodaysJournal : ComponentBase
     {
-        [Inject]
-        public DatabaseService DbService { get; set; } = default!;
+        [Inject] public DatabaseService DbService { get; set; } = default!;
 
-        [Inject]
-        public NavigationManager NavManager { get; set; } = default!;
+        [Inject] public NavigationManager NavManager { get; set; } = default!;
 
         public Journal CurrentEntry { get; set; } = new Journal();
         public string StatusMessage { get; set; } = "";
@@ -20,13 +18,16 @@ namespace MyJournal.Components.Pages
         protected override async Task OnInitializedAsync()
         {
             var existing = await DbService.GetTodaysJournalAsync();
+
             if (existing != null) CurrentEntry = existing;
             else
             {
                 CurrentEntry = new Journal
                 {
                     EntryDate = DateTime.Today,
-                    Id = Guid.NewGuid()
+                    Id = Guid.NewGuid(), 
+                    Title = "",
+                    Content = "",
                 };
 
 
@@ -65,16 +66,16 @@ namespace MyJournal.Components.Pages
         {
             if (string.IsNullOrWhiteSpace(CurrentEntry.Title)) return;
 
-            var HtmlContent = await JS.InvokeAsync<string>("getQuillHtml");
-
-            var existing = await DbService.GetEntryByDateAsync(CurrentEntry.EntryDate);
-            if (existing != null && existing.Id != CurrentEntry.Id) return;
-
-            CurrentEntry.EntryDate = DateTime.UtcNow;
+            CurrentEntry.Content = await JS.InvokeAsync<string>("getQuillHtml");
             CurrentEntry.UpdatedAt = DateTime.UtcNow;
 
             await DbService.SaveJournalAsync(CurrentEntry);
-            NavManager.NavigateTo("/myjournals");
+            StatusMessage = $"Journal saved at {DateTime.Now:HH:mm}";
+            StateHasChanged();
+
+            await Task.Delay(3000);
+            StatusMessage = "";
+            StateHasChanged();
         }
 
         public void Cancel()
