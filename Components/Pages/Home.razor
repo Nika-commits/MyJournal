@@ -1,5 +1,67 @@
 ﻿@page "/"
+@using MyJournal.Services
+@inject DatabaseService DbService
 
-<h1>My Journal App</h1>
+<div class="dashboard-container">
+    <div class="welcome-section">
+        <h1>Welcome back, Pranish</h1>
+        <p class="subtitle">Here is your journaling progress.</p>
+    </div>
 
-<button @onclick="ToastDemo">Click for Toast</button>
+    @if (Stats == null)
+    {
+        <p>Loading stats...</p>
+    }
+    else
+    {
+        <div class="stats-grid">
+            <div class="stat-card highlight">
+                @* <div class="stat-icon">🔥</div> *@
+                <div class="stat-info">
+                    <span class="stat-value">@Stats.CurrentStreak Days</span>
+                    <span class="stat-label">Current Streak</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                @* <div class="stat-icon">📚</div> *@
+                <div class="stat-info">
+                    <span class="stat-value">@Stats.TotalEntries</span>
+                    <span class="stat-label">Total Entries</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">😊</div>
+                <div class="stat-info">
+                    <span class="stat-value">@Stats.TopMood</span>
+                    <span class="stat-label">Most Frequent Mood</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                @* <div class="stat-icon">✍️</div> *@
+                <div class="stat-info">
+                    <span class="stat-value">@Stats.WordsWritten</span>
+                    <span class="stat-label">Words Written</span>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="action-section">
+        <h3>Ready to write?</h3>
+        <a href="todaysJournal" class="btn-primary-large">
+            Open Today's Journal
+        </a>
+    </div>
+</div>
+
+@code {
+    private JournalStats? Stats;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Stats = await DbService.GetJournalStatsAsync();
+    }
+}
