@@ -54,16 +54,7 @@ namespace MyJournal.Components.Pages
         {
             NavManager.NavigateTo($"/createJournal/{entry.Id}");
         }
-        public string GetMoodEmoji(string? mood) => mood switch
-        {
-            "Happy" => "😊",
-            "Excited" => "🤩",
-            "Calm" => "😌",
-            "Sad" => "😢",
-            "Stressed" => "😫",
-            "Angry" => "😡",
-            _ => "😐"
-        };
+      
 
         public void RequestDeleteEntry(Journal entry)
         {

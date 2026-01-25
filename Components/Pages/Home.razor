@@ -16,7 +16,6 @@
     {
         <div class="stats-grid">
             <div class="stat-card highlight">
-                @* <div class="stat-icon">🔥</div> *@
                 <div class="stat-info">
                     <span class="stat-value">@Stats.CurrentStreak Days</span>
                     <span class="stat-label">Current Streak</span>
@@ -24,7 +23,6 @@
             </div>
 
             <div class="stat-card">
-                @* <div class="stat-icon">📚</div> *@
                 <div class="stat-info">
                     <span class="stat-value">@Stats.TotalEntries</span>
                     <span class="stat-label">Total Entries</span>
@@ -32,7 +30,7 @@
             </div>
 
             <div class="stat-card">
-                <div class="stat-icon">😊</div>
+                <div class="stat-icon">@MoodHelperService.GetEmojisPerMood(Stats.TopMood)</div>
                 <div class="stat-info">
                     <span class="stat-value">@Stats.TopMood</span>
                     <span class="stat-label">Most Frequent Mood</span>
@@ -40,7 +38,6 @@
             </div>
 
             <div class="stat-card">
-                @* <div class="stat-icon">✍️</div> *@
                 <div class="stat-info">
                     <span class="stat-value">@Stats.WordsWritten</span>
                     <span class="stat-label">Words Written</span>
@@ -57,11 +54,3 @@
     </div>
 </div>
 
-@code {
-    private JournalStats? Stats;
-
-    protected override async Task OnInitializedAsync()
-    {
-        Stats = await DbService.GetJournalStatsAsync();
-    }
-}

@@ -47,16 +47,6 @@ namespace MyJournal.Components.Pages
                 }
             }
         }
-        public static string GetMoodEmoji(string mood) => mood switch
-        {
-            "Happy" => "😊",
-            "Excited" => "🤩",
-            "Calm" => "😌",
-            "Sad" => "😢",
-            "Stressed" => "😫",
-            "Angry" => "😡",
-            _ => "😐"
-        };
 
         public void SetMood(string mood)
         {

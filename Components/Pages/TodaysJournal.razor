@@ -1,5 +1,6 @@
 ﻿@page "/todaysjournal"
 @using MyJournal.Components.Models
+@using MyJournal.Services
 
 @inject IJSRuntime JS;
 
@@ -36,7 +37,7 @@
                 {
                     <button class="mood-btn @(CurrentEntry.Mood == mood ? "selected" : "")"
                             @onclick="() => SetMood(mood)">
-                        @GetMoodEmoji(mood) @mood
+                        @MoodHelperService.GetEmojisPerMood(mood) @mood
                     </button>
                 }
             </div>

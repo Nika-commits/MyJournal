@@ -1,6 +1,7 @@
 ﻿@page "/myJournals"
 @using MyJournal.Components.Models
 @using MyJournal.Components.Shared
+@using MyJournal.Services
 
 <div class="page-container">
     <div class="header-section">
@@ -16,7 +17,6 @@
                @bind="searchTerm" 
                @bind:event="oninput" 
                @onkeyup="ExecuteSearch" /> 
-               @* @onkeyup makes it search instantly while typing *@
     </div>
 
     <select class="mood-filter" @onchange="OnMoodChanged">
@@ -47,7 +47,7 @@
                 <div class="journal-card">
                     <div class="card-top">
                         <span class="entry-date">@entry.EntryDate.ToString("MMM dd")</span>
-                        <span class="mood-emoji" title="@entry.Mood">@GetMoodEmoji(entry.Mood)</span>
+                        <span class="mood-emoji" title="@entry.Mood">@MoodHelperService.GetEmojisPerMood(entry.Mood)</span>
                     </div>
 
                     <h3 class="entry-title">@entry.Title</h3>
