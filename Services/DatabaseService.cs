@@ -27,6 +27,12 @@ namespace MyJournal.Services
             return await _database!.Table<Journal>().OrderByDescending(j => j.EntryDate).ToListAsync();
         }
 
+        public async Task<Journal> GetJournalByIdAsync(Guid id)
+        {
+            await InitAsync();
+            return await _database!.Table<Journal>().Where(j => j.Id == id).FirstOrDefaultAsync();
+        }
+
         public async Task<int> DeleteJournalAsync(Guid id)
         {
             await InitAsync();

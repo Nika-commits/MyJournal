@@ -1,0 +1,55 @@
+﻿
+@page "/viewJournal/{Id:guid}"
+@using MyJournal.Services
+@using MyJournal.Components.Models
+@inject DatabaseService DbService
+@inject NavigationManager NavManager
+
+<div class="view-container">
+    @if (Entry == null)
+    {
+        <p>Loading entry...</p>
+    }
+    else
+    {
+        <button class="btn-back" @onclick="GoBack">
+            ← Back to List
+        </button>
+
+        <div class="paper-sheet read-only">
+            <div class="sheet-header">
+                <h1 class="view-title">@Entry.Title</h1>
+                <div class="view-meta">
+                    <span class="date">@Entry.EntryDate.ToString("dddd, MMMM dd, yyyy")</span>
+
+                    @if (!string.IsNullOrEmpty(Entry.Mood))
+                    {
+                        <span class="mood-badge">
+                            @MoodHelperService.GetEmojisPerMood(Entry.Mood) @Entry.Mood
+                        </span>
+                    }
+                </div>
+            </div>
+
+            <div class="journal-content">
+                @((MarkupString)Entry.Content)
+            </div>
+
+            @if (!string.IsNullOrEmpty(Entry.Tags))
+            {
+                <div class="tags-section">
+                    <span class="tag-icon">🏷️</span>
+                    @foreach (var tag in Entry.Tags.Split(','))
+                    {
+                        <span class="tag-chip">@tag.Trim()</span>
+                    }
+                </div>
+            }
+        </div>
+
+        <button class="btn-edit-floating" @onclick="GoToEdit" title="Edit this entry">
+            ✏️
+        </button>
+    }
+</div>
+

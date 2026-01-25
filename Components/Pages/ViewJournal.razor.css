@@ -1,0 +1,114 @@
+.view-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+}
+
+.btn-back {
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-bottom: 15px;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+    .btn-back:hover {
+        background-color: #f0f0f0;
+    }
+
+/* Re-using paper-sheet but with specific tweaks */
+.paper-sheet.read-only {
+    padding: 50px;
+    min-height: 70vh;
+}
+
+.view-title {
+    font-family: 'Lora', serif;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: var(--color-text);
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 15px;
+}
+
+.view-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #888;
+    margin-bottom: 40px;
+    font-family: 'Nunito', sans-serif;
+}
+
+.mood-badge {
+    background-color: #f0f7ef;
+    color: #2F3E2E;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    border: 1px solid #8FA885;
+}
+
+.journal-content {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #333;
+    font-family: 'Nunito', sans-serif;
+}
+
+    /* Styling standard HTML tags coming from Quill */
+    .journal-content p {
+        margin-bottom: 15px;
+    }
+
+    .journal-content h1, .journal-content h2 {
+        margin-top: 20px;
+    }
+
+    .journal-content ul, .journal-content ol {
+        margin-left: 20px;
+        margin-bottom: 15px;
+    }
+
+.tags-section {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px dashed #ddd;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tag-chip {
+    background-color: #eee;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: #555;
+}
+
+/* Floating Edit Button */
+.btn-edit-floating {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+    color: white;
+    font-size: 1.5rem;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: transform 0.2s;
+    z-index: 100;
+}
+
+    .btn-edit-floating:hover {
+        transform: scale(1.1);
+    }

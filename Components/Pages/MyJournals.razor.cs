@@ -50,9 +50,9 @@ namespace MyJournal.Components.Pages
         }
 
 
-        public void EditEntry(Journal entry)
+        public void ViewEntry(Guid id)
         {
-            NavManager.NavigateTo($"/createJournal/{entry.Id}");
+            NavManager.NavigateTo($"/viewJournal/{id}");
         }
       
 

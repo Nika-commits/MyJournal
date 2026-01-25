@@ -44,7 +44,7 @@
         <div class="journal-grid">
             @foreach (var entry in JournalList)
             {
-                <div class="journal-card">
+                <div class="journal-card" @onclick="() => ViewEntry(entry.Id)">
                     <div class="card-top">
                         <span class="entry-date">@entry.EntryDate.ToString("MMM dd")</span>
                         <span class="mood-emoji" title="@entry.Mood">@MoodHelperService.GetEmojisPerMood(entry.Mood)</span>
