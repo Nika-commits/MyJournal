@@ -12,6 +12,9 @@ namespace MyJournal.Components.Models
         public int WordsWritten { get; set; }
         public string TopMood { get; set; } = "";
 
+        public Dictionary<string, int> MoodCounts { get; set; } = new();
+        public Dictionary<string, int> TopTags { get; set;  } = new();
+        public string MostProductiveDay { get; set; } = "";
 
     }
 }

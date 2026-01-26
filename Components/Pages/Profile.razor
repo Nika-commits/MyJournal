@@ -1,4 +1,95 @@
-﻿@page "/profile"
+﻿
+@page "/profile"
+@using MyJournal.Services
+@using MyJournal.Components.Models
+@inject DatabaseService DbService
 
-<h3>Profile</h3>
+<div class="profile-container">
 
+    <div class="profile-header">
+        
+        <h2>Pranish Chaulagain's Profile</h2>
+        <p class="join-date">Journaling since @MemberSince</p>
+    </div>
+
+    @if (Stats == null)
+    {
+        <div class="loading-state">
+            <div class="spinner"></div>
+            <p>Analyzing your history...</p>
+        </div>
+    }
+    else
+    {
+        <div class="stats-overview">
+            <div class="mini-card">
+                <span class="val">@Stats.TotalEntries</span>
+                <span class="lbl">Total Entries</span>
+            </div>
+            <div class="mini-card">
+                <span class="val">@Stats.WordsWritten</span>
+                <span class="lbl">Words Written</span>
+            </div>
+            <div class="mini-card">
+                <span class="val">@Stats.LongestStreak Days</span>
+                <span class="lbl">Best Streak</span>
+            </div>
+            <div class="mini-card">
+                <span class="val">@Stats.MostProductiveDay</span>
+                <span class="lbl">Best Day</span>
+            </div>
+        </div>
+
+        <div class="analytics-section">
+            <h3>Mood Breakdown</h3>
+
+            @if (Stats.MoodCounts != null && Stats.MoodCounts.Any())
+            {
+                <div class="bars-container">
+                    @foreach (var mood in Stats.MoodCounts)
+                    {
+                        // Calculate percentage for width
+                        double percent = (double)mood.Value / Stats.TotalEntries * 100;
+
+                        <div class="bar-row">
+                            <span class="bar-label">@mood.Key</span> <div class="track">
+                                <div class="fill @mood.Key.ToLower()" style="width: @percent%"></div>
+                            </div>
+
+                            <span class="bar-count">@mood.Value</span>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <p class="no-data">No mood data recorded yet.</p>
+            }
+        </div>
+
+        <div class="analytics-section">
+            <h3>Top Topics</h3>
+
+            @if (Stats.TopTags != null && Stats.TopTags.Any())
+            {
+                <div class="tags-cluster">
+                    @foreach (var tag in Stats.TopTags)
+                    {
+                        <div class="tag-pill">
+                            <span class="name">#@tag.Key</span>
+                            <span class="count">@tag.Value</span>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <p class="no-data">No tags used yet.</p>
+            }
+        </div>
+    }
+</div>
+
+@code {
+
+}

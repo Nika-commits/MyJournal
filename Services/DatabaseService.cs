@@ -107,6 +107,7 @@ namespace MyJournal.Services
                 Mood = j.PrimaryMood
             }).ToList();
         }
+
         public async Task<JournalStats> GetJournalStatsAsync()
         {
             await InitAsync();
@@ -118,11 +119,11 @@ namespace MyJournal.Services
                 TotalEntries = allEntries.Count,
                 WordsWritten = allEntries.Sum(e => string.IsNullOrEmpty(e.Content) ? 0 : e.Content.Split(' ').Length),
                 CurrentStreak = 0,
-                LongestStreak = 0
+                LongestStreak = 0,
+                TopMood = "N/A"
             };
 
-            if (!allEntries.Any())
-                return stats;
+            if (!allEntries.Any()) return stats;
 
             var uniqueDates = allEntries
                 .Select(e => e.EntryDate.Date)
@@ -186,6 +187,24 @@ namespace MyJournal.Services
                                       .FirstOrDefault();
 
             if (moodGroups != null) stats.TopMood = moodGroups.Key;
+
+            var tagDict = new Dictionary<string, int>();
+            foreach (var entry in allEntries)
+            {
+                if (string.IsNullOrEmpty(entry.Tags)) continue;
+                foreach (var t in entry.Tags.Split(',', StringSplitOptions.RemoveEmptyEntries))
+                {
+                    var cleanTag = t.Trim();
+                    if (tagDict.ContainsKey(cleanTag)) tagDict[cleanTag]++;
+                    else tagDict[cleanTag] = 1;
+                }
+            }
+
+            stats.TopTags = tagDict.OrderByDescending(x => x.Value).Take(10).ToDictionary(x => x.Key, x => x.Value);
+
+            var dayGroup = allEntries.GroupBy(e => e.EntryDate.DayOfWeek).OrderByDescending(g => g.Count()).FirstOrDefault();
+            if (dayGroup != null) stats.MostProductiveDay = dayGroup.Key.ToString();
+
             return stats;
 
         }

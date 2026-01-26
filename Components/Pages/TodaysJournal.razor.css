@@ -2,7 +2,7 @@
 .journal-editor-container {
     display: flex;
     gap: 30px;
-    height: calc(100vh - 20px);
+    height: 100%;
     width:100%;
     margin: 0 auto;
     overflow:hidden;
@@ -19,7 +19,7 @@
     height:100%;
     min-height:0;
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    min-height: 600px;
+    min-height: 0;
 }
 
 #editor-container {
@@ -96,7 +96,8 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    overflow-y:auto;
+    height:100%;
+    overflow: hidden;
 }
 
 .meta-card {
@@ -104,6 +105,7 @@
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+    flex-shrink:0;
 }
 
 h4 {
@@ -240,8 +242,9 @@ h4 {
     flex-wrap: wrap; /* This prevents the "overflow" issue */
     gap: 8px;
     margin-top: 5px;
-    max-height: 300px; /* Optional: adds scroll if too many tags */
+    max-height: 25vh; 
     overflow-y: auto;
+    padding-right: 4px;
 }
 
 .tag-chip {

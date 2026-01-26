@@ -1,0 +1,191 @@
+/* --- PROFILE CONTAINER --- */
+.profile-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    padding-bottom: 80px; /* Space for scrolling */
+}
+
+/* HEADER */
+.profile-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.avatar-circle {
+    width: 90px;
+    height: 90px;
+    background-color: var(--color-primary, #8FA885);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0 auto 15px;
+    box-shadow: 0 4px 15px rgba(143, 168, 133, 0.4);
+}
+
+.profile-header h2 {
+    font-family: 'Lora', serif;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.join-date {
+    color: #888;
+    font-size: 0.9rem;
+}
+
+/* STATS GRID (2x2 Cards) */
+.stats-overview {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.mini-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    border: 1px solid #eee;
+    transition: transform 0.2s;
+}
+
+    .mini-card:hover {
+        transform: translateY(-3px);
+    }
+
+    .mini-card .val {
+        display: block;
+        font-size: 1.6rem;
+        font-weight: bold;
+        color: #2F3E2E;
+        font-family: 'Nunito', sans-serif;
+    }
+
+    .mini-card .lbl {
+        font-size: 0.85rem;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-top: 5px;
+        display: block;
+    }
+
+/* ANALYTICS SECTIONS */
+.analytics-section {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    border: 1px solid #eee;
+    margin-bottom: 20px;
+}
+
+    .analytics-section h3 {
+        margin-top: 0;
+        font-size: 1.1rem;
+        color: #555;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #f0f0f0;
+        padding-bottom: 10px;
+    }
+
+/* BAR CHARTS */
+.bars-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.bar-row {
+    display: flex;
+    align-items: center;
+}
+
+.bar-label {
+    width: 70px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #555;
+}
+
+.track {
+    flex: 1;
+    height: 12px;
+    background: #f1f3f5;
+    border-radius: 6px;
+    margin: 0 15px;
+    overflow: hidden; /* Ensures bar fits in rounded corners */
+}
+
+.fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 1s ease-out;
+}
+
+    /* Chart Colors */
+    .fill.positive {
+        background-color: #8FA885;
+    }
+    /* Sage */
+    .fill.neutral {
+        background-color: #adb5bd;
+    }
+    /* Grey */
+    .fill.negative {
+        background-color: #e57373;
+    }
+/* Soft Red */
+
+.bar-count {
+    width: 30px;
+    text-align: right;
+    font-weight: bold;
+    color: #333;
+}
+
+/* TAG CLOUD */
+.tags-cluster {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tag-pill {
+    background: #f8f9fa;
+    border: 1px solid #eee;
+    padding: 8px 16px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+}
+
+    .tag-pill .name {
+        color: #2F3E2E;
+        font-weight: 600;
+    }
+
+    .tag-pill .count {
+        background: #e9ecef;
+        color: #666;
+        font-size: 0.75rem;
+        padding: 2px 8px;
+        border-radius: 10px;
+        font-weight: bold;
+    }
+
+.no-data {
+    color: #ccc;
+    font-style: italic;
+    text-align: center;
+    padding: 20px;
+}
