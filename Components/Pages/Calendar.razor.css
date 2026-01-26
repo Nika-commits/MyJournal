@@ -1,6 +1,5 @@
-/* Container fills the remaining height of the screen */
 .calendar-container {
-    height: calc(100vh - 40px); /* Adjust based on your topbar/padding */
+    /*    height: ; */
     display: flex;
     flex-direction: column;
     padding: 0 20px 20px 20px;
@@ -18,12 +17,13 @@
 .month-label {
     font-family: 'Lora', serif;
     font-size: 2rem;
-    color: var(--color-sidebar);
+    color: var(--color-text);
 }
 
 .nav-btn {
-    background: white;
-    border: 1px solid #ddd;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
     padding: 8px 16px;
     border-radius: 6px;
     cursor: pointer;
@@ -31,54 +31,51 @@
 }
 
     .nav-btn:hover {
-        background-color: #f5f5f5;
+        background-color: var(--color-bg-secondary);
     }
 
-/* The Grid: Fills remaining vertical space */
 .calendar-grid {
-    flex-grow: 1; /* Key for full screen */
+    flex-grow: 1;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: auto repeat(5, 1fr); /* Header + 5 rows */
+    grid-template-rows: auto repeat(5, 1fr);
     gap: 10px;
 }
 
-/* Headers (Sun, Mon...) */
 .day-header {
     text-align: center;
     font-weight: bold;
-    color: #888;
+    color: var(--color-text-muted);
     padding: 10px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--color-border);
 }
 
-/* Individual Day Cells */
 .day-cell {
-    background-color: white;
+    background-color: var(--color-surface);
     border-radius: 12px;
-    border: 1px solid #f0f0f0;
+    border: 1px solid var(--color-border);
     padding: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Pushes mood to bottom or center */
+    justify-content: space-between;
     transition: all 0.2s;
-    min-height: 80px; /* Ensure a minimum size */
+    min-height: 80px;
 }
 
     .day-cell.clickable {
         cursor: pointer;
         background-color: #ffffff;
-        border-color: var(--color-primary); /* Sage Green border for entries */
+        border-color: var(--color-primary);
     }
 
         .day-cell.clickable:hover {
-            background-color: #f0f7ef; /* Light Sage hover */
+            background-color: var(--color-bg-secondary);
             transform: translateY(-2px);
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
 
     .day-cell.today {
-        background-color: #fff9e6; /* Soft yellow for today */
+        background-color: #fff9e6;
         border: 2px solid #ffd700;
     }
 
@@ -94,11 +91,10 @@
     color: #555;
 }
 
-/* The Mood Badge */
 .mood-badge {
-    align-self: flex-end; /* Puts it in bottom right corner */
+    align-self: flex-end;
     font-size: 1.5rem;
-    background-color: rgba(143, 168, 133, 0.2); /* Sage transparent */
+    background-color: rgba(143, 168, 133, 0.2);
     border-radius: 50%;
     width: 35px;
     height: 35px;

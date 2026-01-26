@@ -1,6 +1,6 @@
 .dashboard-container {
     padding: 20px;
-    max-width: 1000px;
+/*    max-width: 100vh;*/
     margin: 0 auto;
 }
 
@@ -12,11 +12,10 @@
 }
 
 .subtitle {
-    color: #666;
+    color: var(--color-text-muted);
     margin-bottom: 30px;
 }
 
-/* Grid Layout for Cards */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -25,14 +24,14 @@
 }
 
 .stat-card {
-    background: white;
+    background: var(--color-surface);
     padding: 25px;
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 15px var(--color-shadow);
     display: flex;
     align-items: center;
     gap: 15px;
-    border: 1px solid #eee;
+    border: 1px solid var(--color-border);
     transition: transform 0.2s;
 }
 
@@ -41,7 +40,7 @@
     }
 
     .stat-card.highlight {
-        background: linear-gradient(135deg, var(--color-primary), #a3bda0); /* Sage Gradient */
+        background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark)); 
         color: white;
     }
 
@@ -66,7 +65,7 @@
 
 .stat-label {
     font-size: 0.9rem;
-    color: #888;
+    color: var(--color-text);
 }
 
 .btn-primary-large {

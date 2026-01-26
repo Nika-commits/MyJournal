@@ -1,5 +1,4 @@
-﻿/* Layout Container */
-.journal-editor-container {
+﻿.journal-editor-container {
     display: flex;
     gap: 30px;
     height: 100%;
@@ -8,30 +7,27 @@
     overflow:hidden;
 }
 
-/* LEFT: The Paper Sheet */
 .paper-sheet {
     flex: 2;
-    background-color: white;
+    background-color: var(--color-surface);
     border-radius: 12px;
     padding: 40px;
     display: flex;
     flex-direction: column;
     height:100%;
     min-height:0;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    min-height: 0;
+    box-shadow: 0 4px 15px var(--color-shadow);
 }
 
 #editor-container {
     display: flex;
     flex-direction: column;
-    flex-grow: 1; /* Take all remaining vertical space */
-    min-height: 0; /* Crucial for scrolling to work inside flex items */
+    flex-grow: 1; 
+    min-height: 0; 
 }
-/* Remove Quill's borders to match your minimalist "paper" style */
 .ql-toolbar.ql-snow {
     border: none !important;
-    border-bottom: 1px solid #f0f0f0 !important;
+    border-bottom: 1px solid var(--color-border) !important;
     margin-bottom: 10px;
     padding: 8px 0 !important;
     flex-shrink:0;
@@ -39,19 +35,25 @@
 
 .ql-container.ql-snow {
     border: none !important;
-    flex-grow: 1; /* Makes it fill the sheet */
+    flex-grow: 1; 
     font-family: 'Nunito', sans-serif !important;
     overflow-y:auto;
 }
 
-/* Style the actual editing area */
 .ql-editor {
+    color:var(--color-text);
     font-size: 1.1rem;
     line-height: 1.6;
-    padding: 0 !important; /* Matches your paper sheet padding */
+    padding: 0 !important; 
+}
+.ql-stroke {
+    stroke: var(--color-text) !important;
 }
 
-    /* Placeholder styling */
+.ql-fill {
+    fill: var(--color-text) !important;
+}
+
     .ql-editor.ql-blank::before {
         left: 0 !important;
         font-style: italic;
@@ -63,14 +65,15 @@
     border: none;
     font-size: 2rem;
     font-family: 'Lora', serif;
-    color: var(--color-text, #333);
+    color: var(--color-text);
+    background: transparent;
     margin-bottom: 10px;
     outline: none;
     border-bottom: 2px solid transparent;
 }
 
     .title-input:focus {
-        border-bottom: 2px solid #8FA885; /* Sage Green */
+        border-bottom: 2px solid var(--color-primary); 
     }
 
 .date-display {
@@ -90,7 +93,6 @@
     font-family: 'Nunito', sans-serif;
 }
 
-/* RIGHT: Metadata Panel */
 .metadata-panel {
     flex: 1;
     display: flex;
@@ -101,10 +103,10 @@
 }
 
 .meta-card {
-    background-color: white;
+    background-color: var(--color-surface);
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+    box-shadow: 0 4px 6px var(--color-shadow);
     flex-shrink:0;
 }
 
@@ -112,7 +114,7 @@ h4 {
     margin-top: 0;
     margin-bottom: 15px;
     font-size: 1.1rem;
-    color: #2F3E2E;
+    color: var(--color-text);
 }
 
 /* Mood Grid */
@@ -123,29 +125,31 @@ h4 {
 }
 
 .mood-btn {
-    background: white;
-    border: 1px solid #ddd;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
     border-radius: 8px;
     padding: 10px;
     cursor: pointer;
     transition: all 0.2s;
+    color: var(--color-text);
 }
 
     .mood-btn:hover {
-        background-color: #f0f7ef;
-        border-color: #8FA885;
+        background-color: var(--color-bg-secondary);
+        border-color: var(--color-primary);
     }
 
     .mood-btn.selected {
-        background-color: #8FA885;
-        color: white;
-        border-color: #8FA885;
+        background-color: var(--color-bg-secondary);
+        color: var(--color-primary);
+        border-color: var(--color-primary);
+        transform: scale(1.05);
     }
 
 .input-field {
     width: 100%;
     padding: 12px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--color-border);
     border-radius: 8px;
 }
 
@@ -162,14 +166,13 @@ h4 {
 
 .btn-secondary {
     background: transparent;
-    border: 2px solid #ddd;
+    border: 2px solid var(--color-border);
     padding: 10px;
     border-radius: 8px;
     color: #666;
     cursor: pointer;
 }
 
-/* Primary Selection: Sage Green */
 .mood-btn.selected-primary {
     background-color: #8FA885;
     color: white;
@@ -177,11 +180,10 @@ h4 {
     transform: scale(1.05);
 }
 
-/* Secondary Selection: Different visual cue */
 .mood-btn.selected-secondary {
-    background-color: #E0F2F1; /* Light Teal */
-    border-color: #4DB6AC;
-    color: #00695C;
+    background-color: var(--color-bg-secondary); /* Light Teal */
+    border-color: var(--color-primary);
+    color: var(--color-primary);
 }
 
 .mood-btn:disabled {
@@ -189,12 +191,10 @@ h4 {
     cursor: not-allowed;
 }
 
-/* Smaller buttons for secondary list */
 .mood-btn.small {
     padding: 5px 10px;
     font-size: 0.85rem;
 }
-/* --- CATEGORY SELECTOR STYLES --- */
 .category-selector {
     display: flex;
     gap: 10px;
@@ -202,22 +202,22 @@ h4 {
 }
 
 .cat-btn {
-    flex: 1; /* Makes them split width equally */
+    flex: 1; 
     padding: 12px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--color-border);
     border-radius: 8px;
-    background: white;
+    background: var(--color-surface);
     font-weight: bold;
+    color: var(--color-text);
     font-family: 'Nunito', sans-serif;
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
     .cat-btn:hover {
-        background-color: #f9f9f9;
+        background-color: var(--color-bg-secondary);
     }
 
-    /* Active State Colors */
     .cat-btn.positive.active {
         background-color: #d4edda;
         border-color: #c3e6cb;
@@ -236,10 +236,9 @@ h4 {
         color: #721c24;
     }
 
-/* --- TAG CLOUD STYLES --- */
 .tags-cloud {
     display: flex;
-    flex-wrap: wrap; /* This prevents the "overflow" issue */
+    flex-wrap: wrap; 
     gap: 8px;
     margin-top: 5px;
     max-height: 25vh; 
@@ -248,24 +247,24 @@ h4 {
 }
 
 .tag-chip {
-    background-color: #f1f3f5;
-    color: #495057;
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text);
     padding: 6px 14px;
-    border-radius: 20px; /* Pill shape */
+    border-radius: 20px; 
     font-size: 0.85rem;
-    cursor: pointer; /* Makes it look clickable */
+    cursor: pointer; 
     border: 1px solid transparent;
     transition: all 0.2s;
-    user-select: none; /* Prevents text highlighting when clicking fast */
+    user-select: none; 
 }
 
     .tag-chip:hover {
-        background-color: #e9ecef;
+        background-color: var(--color-border);
         transform: translateY(-1px);
     }
 
     .tag-chip.selected {
-        background-color: #8FA885; /* Sage Green */
+        background-color: var(--color-primary); 
         color: white;
         box-shadow: 0 2px 5px rgba(143, 168, 133, 0.4);
     }

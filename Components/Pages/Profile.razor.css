@@ -1,12 +1,10 @@
-/* --- PROFILE CONTAINER --- */
 .profile-container {
-    max-width: 800px;
+/*    max-width: 800px;*/
     margin: 0 auto;
     padding: 20px;
-    padding-bottom: 80px; /* Space for scrolling */
+    padding-bottom: 80px; 
 }
 
-/* HEADER */
 .profile-header {
     text-align: center;
     margin-bottom: 40px;
@@ -15,7 +13,7 @@
 .avatar-circle {
     width: 90px;
     height: 90px;
-    background-color: var(--color-primary, #8FA885);
+    background-color: var(--color-primary);
     color: white;
     border-radius: 50%;
     display: flex;
@@ -24,17 +22,17 @@
     font-size: 1.8rem;
     font-weight: bold;
     margin: 0 auto 15px;
-    box-shadow: 0 4px 15px rgba(143, 168, 133, 0.4);
+    box-shadow: 0 4px 15px var(--color-border);
 }
 
 .profile-header h2 {
     font-family: 'Lora', serif;
     margin-bottom: 5px;
-    color: #333;
+    color: var(--color-text);
 }
 
 .join-date {
-    color: #888;
+    color: var(--color-text-muted);
     font-size: 0.9rem;
 }
 
@@ -47,12 +45,12 @@
 }
 
 .mini-card {
-    background: white;
+    background: var(--color-surface);
     padding: 20px;
     border-radius: 12px;
     text-align: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-    border: 1px solid #eee;
+    box-shadow: 0 4px 10px var(--color-shadow);
+    border: 1px solid var(--color-border);
     transition: transform 0.2s;
 }
 
@@ -70,29 +68,28 @@
 
     .mini-card .lbl {
         font-size: 0.85rem;
-        color: #888;
+        color: var(--color-text-muted);
         text-transform: uppercase;
         letter-spacing: 1px;
         margin-top: 5px;
         display: block;
     }
 
-/* ANALYTICS SECTIONS */
 .analytics-section {
-    background: white;
+    background: var(--color-surface);
     padding: 25px;
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-    border: 1px solid #eee;
+    box-shadow: 0 4px 10px var(--color-shadow);
+    border: 1px solid var(--color-border);
     margin-bottom: 20px;
 }
 
     .analytics-section h3 {
         margin-top: 0;
         font-size: 1.1rem;
-        color: #555;
+        color: var(--color-text-muted);
         margin-bottom: 20px;
-        border-bottom: 1px solid #f0f0f0;
+        border-bottom: 1px solid var(--color-border);
         padding-bottom: 10px;
     }
 
@@ -106,22 +103,24 @@
 .bar-row {
     display: flex;
     align-items: center;
+    font-weight:bold;
+    color: var(--color-text-muted)
 }
 
 .bar-label {
     width: 70px;
     font-size: 0.9rem;
     font-weight: bold;
-    color: #555;
+    color: var(--color-text-muted);
 }
 
 .track {
     flex: 1;
     height: 12px;
-    background: #f1f3f5;
+    background: var(--color-bg-secondary);
     border-radius: 6px;
     margin: 0 15px;
-    overflow: hidden; /* Ensures bar fits in rounded corners */
+    overflow: hidden; 
 }
 
 .fill {
@@ -130,25 +129,23 @@
     transition: width 1s ease-out;
 }
 
-    /* Chart Colors */
     .fill.positive {
-        background-color: #8FA885;
+        background-color: var(--color-primary);
     }
-    /* Sage */
+
     .fill.neutral {
         background-color: #adb5bd;
     }
-    /* Grey */
+
     .fill.negative {
         background-color: #e57373;
     }
-/* Soft Red */
 
 .bar-count {
     width: 30px;
     text-align: right;
     font-weight: bold;
-    color: #333;
+    color: var(--color-text);
 }
 
 /* TAG CLOUD */
@@ -159,8 +156,8 @@
 }
 
 .tag-pill {
-    background: #f8f9fa;
-    border: 1px solid #eee;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
     padding: 8px 16px;
     border-radius: 25px;
     display: flex;
@@ -170,13 +167,13 @@
 }
 
     .tag-pill .name {
-        color: #2F3E2E;
+        color: var(--color-text);
         font-weight: 600;
     }
 
     .tag-pill .count {
-        background: #e9ecef;
-        color: #666;
+        background: var(--color-border);
+        color: var(--color-text-muted);
         font-size: 0.75rem;
         padding: 2px 8px;
         border-radius: 10px;

@@ -1,16 +1,14 @@
-/* 1. CONTAINER LAYOUT */
 .nav-container {
     height: 100%;
     display: flex;
     flex-direction: column;
     padding-top: 20px;
     background-color: transparent;
-    color: white;
+    color: var(--color-text-inverse);
     overflow-y: auto;
     scroll-behavior: smooth;
 }
 
-/* 2. LOGO STYLING */
 .brand-decoration {
     margin-top: 10px;
     display: flex;
@@ -19,20 +17,19 @@
 }
 
 .brand-logo {
-    width: 200px; /* Adjusted size to fit better */
+    width: 200px; 
     height: 160px;
     border-radius: 20%;
     object-fit: cover;
 }
 
-/* 3. NAVIGATION ITEMS */
 .nav-item {
     font-size: 1rem;
     padding-bottom: 0.5rem;
 }
 
     .nav-item ::deep .nav-link {
-        color: rgba(255,255,255,0.7); /* Muted white */
+        color: rgba(255,255,255,0.7); 
         border-radius: 12px;
         height: 3.5rem;
         display: flex;
@@ -41,16 +38,29 @@
         transition: all 0.1s ease-in-out;
     }
 
-        /* HOVER STATE */
         .nav-item ::deep .nav-link:hover {
             background-color: rgba(255,255,255,0.1);
             color: white;
         }
 
-        /* ACTIVE STATE (Sage Green Highlight) */
         .nav-item ::deep .nav-link.active {
-            background-color: #8FA885;
+            background-color: var(--color-primary);
             color: white;
             font-weight: bold;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
+
+.theme-btn {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.2s;
+}
+
+    .theme-btn:hover {
+        background: rgba(255,255,255,0.2);
+    }

@@ -9,45 +9,73 @@
 }
 
 :root {
-    --color-primary: #8FA885; /* Sage Green  */
-    --color-primary-dark: #768c6d; /* Darker Sage */
-    --color-bg: #F9F7F2; /* Warm Paper */
-    --color-sidebar: #2F3E2E; /* Dark Olive (Logo Text) */
-    --color-text: #2F3E2E; /* Dark Olive for main text */
-    --color-white: #ffffff;
+    --color-primary: #8FA885; 
+    --color-primary-dark: #768c6d;
+    --color-bg: #F9F7F2; 
+    --color-surface: #ffffff; 
+    --color-sidebar: #2F3E2E; 
+    --color-bg-secondary: #f8f9fa; 
+    --color-text: #2F3E2E; 
+    --color-text-muted: #666666; 
+    --color-text-inverse: #ffffff;
+    --color-border: #e0e0e0;
+    --color-shadow: rgba(0,0,0,0.05);
 }
+
+.dark-mode {
+    --color-primary: #A3C9A8; 
+    --color-primary-dark: #8FA885;
+    --color-bg: #121212; 
+    --color-surface: #1E1E1E; 
+    --color-sidebar: #000000; 
+    --color-bg-secondary: #2d2d2d; 
+    --color-text: #E0E0E0; 
+    --color-text-muted: #A0A0A0; 
+    --color-text-inverse: #ffffff;
+    --color-border: #333333;
+    --color-shadow: rgba(0,0,0,0.5);
+}
+
 
 html, body {
     font-family: 'Nunito', 'Helvetica Neue', Arial, sans-serif; 
     background-color: var(--color-bg);
     color: var(--color-text);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
+
 
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Lora', serif;
-    color: var(--color-sidebar);
+    color: var(--color-text);
 }
 
 a, .btn-link {
-    color: var(--color-primary-dark);
+    color: var(--color-primary);
 }
+
 
 .btn-primary {
     color: #fff;
-    border-radius:8px;
+    border-radius: 8px;
     padding: 10px;
-    border-color: var(--color-primary);
+    border: 1px solid var(--color-primary);
     background-color: var(--color-primary);
-    /*    border-color: var(--color-primary-dark);
-    font-family: 'Lora', serif; */
-    /*    border-radius: 12px;
-}*/
+    cursor: pointer;
 }
 
     .btn-primary:hover {
         background-color: var(--color-primary-dark);
-        border-color: var(--color-sidebar);
     }
+
+.btn-secondary {
+    background: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
 
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
@@ -89,31 +117,26 @@ a, .btn-link {
         top: 0.5rem;
     }
 
-/* 1. Set the width of the scrollbar */
+
 ::-webkit-scrollbar {
-    width: 8px; /* Thin and elegant */
-    height: 8px; /* For horizontal scrollbars */
+    width: 8px;
+    height: 8px;
 }
 
-/* 2. Style the "Track" (The background underneath the bar) */
 ::-webkit-scrollbar-track {
-    background: transparent; /* Keep it invisible */
+    background: transparent;
 }
 
-/* 3. Style the "Thumb" (The moving part) */
 ::-webkit-scrollbar-thumb {
-    background-color: rgba(143, 168, 133, 0.5); /* Sage Green (Semi-transparent) */
-    border-radius: 10px; /* Rounded pill shape */
-    border: 2px solid transparent; /* Creates padding effect */
-    background-clip: content-box;
+    background-color: var(--color-primary);
+    border-radius: 10px;
+    border: 2px solid var(--color-bg);
 }
 
-    /* 4. Style the Thumb on Hover (Darker green) */
     ::-webkit-scrollbar-thumb:hover {
-        background-color: #8FA885; /* Solid Sage Green */
+        background-color: var(--color-primary-dark);
     }
 
-/* Container to center the cards on the screen */
 .auth-container {
     display: flex;
     justify-content: center;
@@ -122,9 +145,9 @@ a, .btn-link {
     background-color: var(--color-bg);
 }
 
-/* The card itself */
+
 .auth-card {
-    background: var(--color-white);
+    background: var(--color-primary);
     padding: 2.5rem;
     border-radius: 16px;
     box-shadow: 0 4px 12px rgba(47, 62, 46, 0.1);
@@ -140,13 +163,12 @@ a, .btn-link {
     margin-bottom: 1.5rem;
 }
 
-/* Customizing the Fluent Input */
 .auth-input {
     width: 100%;
     margin-bottom: 1rem;
+    border-radius:12px;
 }
 
-/* Customizing the Button to match your .btn-primary */
 .auth-btn {
     width: 100%;
     height: 45px !important;
@@ -155,7 +177,6 @@ a, .btn-link {
     border-radius: 8px !important;
 }
 
-/* Overriding Fluent Typography to match your app */
 .auth-card h3 {
     margin-top: 1rem;
     margin-bottom: 0.5rem;

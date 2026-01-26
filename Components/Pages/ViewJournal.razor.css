@@ -7,7 +7,7 @@
 .btn-back {
     background: none;
     border: none;
-    color: #666;
+    color: var(--color-text-muted);
     font-size: 1rem;
     cursor: pointer;
     margin-bottom: 15px;
@@ -16,12 +16,15 @@
 }
 
     .btn-back:hover {
-        background-color: #f0f0f0;
+        background-color: var(--color-bg-secondary);
     }
 
 .paper-sheet.read-only {
     padding: 50px;
     min-height: 70vh;
+    background-color: var(--color-surface); 
+    border-radius: 12px;
+    box-shadow: 0 4px 15px var(--color-shadow);
 }
 
 .view-title {
@@ -29,7 +32,7 @@
     font-size: 2.5rem;
     margin-bottom: 10px;
     color: var(--color-text);
-    border-bottom: 2px solid #f0f0f0;
+    border-bottom: 2px solid var(--color-border);
     padding-bottom: 15px;
 }
 
@@ -37,18 +40,18 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: #888;
+    color: var(--color-text-muted);
     margin-bottom: 40px;
     font-family: 'Nunito', sans-serif;
 }
 
 .mood-badge {
-    background-color: #f0f7ef;
-    color: #2F3E2E;
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text);
     padding: 5px 12px;
     border-radius: 20px;
     font-size: 0.9rem;
-    border: 1px solid #8FA885;
+    border: 1px solid var(--color-primary);
 }
 
 .journal-content {
@@ -58,13 +61,13 @@
     font-family: 'Nunito', sans-serif;
 }
 
-    /* Styling standard HTML tags coming from Quill */
     .journal-content p {
         margin-bottom: 15px;
     }
 
     .journal-content h1, .journal-content h2 {
         margin-top: 20px;
+        color: var(--color-text);
     }
 
     .journal-content ul, .journal-content ol {
@@ -75,7 +78,7 @@
 .tags-section {
     margin-top: 50px;
     padding-top: 20px;
-    border-top: 1px dashed #ddd;
+    border-top: 1px dashed var(--color-border);
     display: flex;
     align-items: center;
     gap: 10px;
@@ -84,14 +87,13 @@
 
 
 .tag-chip {
-    background-color: #eee;
+    background-color: var(--color-bg-secondary);
     padding: 4px 10px;
     border-radius: 4px;
     font-size: 0.85rem;
-    color: #555;
+    color: var(--color-text-muted);
 }
 
-/* Floating Edit Button */
 .btn-edit-floating {
     position: fixed;
     bottom: 30px;
