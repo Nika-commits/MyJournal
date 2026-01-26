@@ -22,10 +22,10 @@
                 <div class="view-meta">
                     <span class="date">@Entry.EntryDate.ToString("dddd, MMMM dd, yyyy")</span>
 
-                    @if (!string.IsNullOrEmpty(Entry.Mood))
+                    @if (!string.IsNullOrEmpty(Entry.PrimaryMood))
                     {
                         <span class="mood-badge">
-                            @MoodHelperService.GetEmojisPerMood(Entry.Mood) @Entry.Mood
+                            @MoodHelperService.GetEmoji(Entry.PrimaryMood) @Entry.PrimaryMood
                         </span>
                     }
                 </div>

@@ -16,8 +16,36 @@ namespace MyJournal.Components.Pages
         private bool isLoaded = false;
         private bool IsEditorInitialized = false;
 
-        public List<string> MoodOptions = ["Happy", "Excited", "Calm", "Sad", "Stressed", "Angry"];
+        //public List<string> MoodOptions = ["Happy", "Excited", "Calm", "Sad", "Stressed", "Angry"];
 
+        public void SetPrimaryMood(MoodItem mood)
+        {
+            CurrentEntry.PrimaryMood = mood.Name;
+            CurrentEntry.MoodCategory = mood.Category;
+
+        }
+        public void ToggleSecondaryMood(MoodItem mood)
+        {
+            var list = CurrentEntry.SecondaryMoodList;
+
+            if (list.Contains(mood.Name))
+            {
+                list.Remove(mood.Name); 
+            }
+            else
+            {
+                if (list.Count < 2) 
+                {
+                    list.Add(mood.Name);
+                }
+                else
+                {
+                    Toast.ShowToast("You can only select 2 secondary moods", ToastLevel.Warning);
+                    return;
+                }
+            }
+            CurrentEntry.SecondaryMoodList = list;
+        }
 
         protected override async Task OnInitializedAsync()
         {
@@ -54,10 +82,10 @@ namespace MyJournal.Components.Pages
             }
         }
 
-        public void SetMood(string mood)
-        {
-            CurrentEntry.Mood = mood;
-        }
+        //public void SetMood(string mood)
+        //{
+        //    CurrentEntry.Mood = mood;
+        //}
 
         public async Task SaveEntry()
         {

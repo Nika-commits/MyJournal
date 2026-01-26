@@ -47,7 +47,7 @@
                 <div class="journal-card" @onclick="() => ViewEntry(entry.Id)">
                     <div class="card-top">
                         <span class="entry-date">@entry.EntryDate.ToString("MMM dd")</span>
-                        <span class="mood-emoji" title="@entry.Mood">@MoodHelperService.GetEmojisPerMood(entry.Mood)</span>
+                        <span class="mood-emoji" title="@entry.PrimaryMood">@MoodHelperService.GetEmoji(entry.PrimaryMood)</span>
                     </div>
 
                     <h3 class="entry-title">@entry.Title</h3>

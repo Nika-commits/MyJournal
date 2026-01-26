@@ -56,7 +56,7 @@ namespace MyJournal.Services
             }
             if (!string.IsNullOrWhiteSpace(selectedMood) && selectedMood != "All")
             {
-                query = query.Where(j => j.Mood == selectedMood);
+                query = query.Where(j => j.PrimaryMood == selectedMood);
             }
             return await query.OrderByDescending(j => j.EntryDate).ToListAsync();
         }
@@ -95,7 +95,7 @@ namespace MyJournal.Services
             {
                 Id = j.Id,
                 EntryDate = j.EntryDate,
-                Mood = j.Mood
+                Mood = j.PrimaryMood
             }).ToList();
         }
         public async Task<JournalStats> GetJournalStatsAsync()
@@ -171,8 +171,8 @@ namespace MyJournal.Services
             }
             stats.LongestStreak = maxStreak;
 
-            var moodGroups = allEntries.Where(e => !string.IsNullOrEmpty(e.Mood))
-                                      .GroupBy(e => e.Mood)
+            var moodGroups = allEntries.Where(e => !string.IsNullOrEmpty(e.PrimaryMood))
+                                      .GroupBy(e => e.PrimaryMood)
                                       .OrderByDescending(g => g.Count())
                                       .FirstOrDefault();
 

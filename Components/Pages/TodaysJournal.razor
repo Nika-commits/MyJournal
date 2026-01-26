@@ -42,14 +42,31 @@
         <div class="meta-card">
             <h4>How are you feeling?</h4>
             <div class="mood-selector">
-                @foreach (var mood in MoodOptions)
+                @foreach (var mood in MoodHelperService.AllMoods)
                 {
-                    <button class="mood-btn @(CurrentEntry.Mood == mood ? "selected" : "")"
-                            @onclick="() => SetMood(mood)">
-                        @MoodHelperService.GetEmojisPerMood(mood) @mood
+                    <button class="mood-btn @(CurrentEntry.PrimaryMood == mood.Name ? "selected" : "")"
+                            @onclick="() => SetPrimaryMood(mood)">
+                        @mood.Emoji @mood.Name
                     </button>
                 }
             </div>
+        </div>
+
+        <h4 style="margin-top: 20px;">Secondary Moods (Max 2)</h4>
+        <div class="mood-selector secondary-grid">
+            @foreach (var mood in MoodHelperService.AllMoods)
+            {
+                var isPrimary = CurrentEntry.PrimaryMood == mood.Name;
+                var isSelected = CurrentEntry.SecondaryMoodList.Contains(mood.Name);
+                var isLimitReached = CurrentEntry.SecondaryMoodList.Count >= 2;
+                var isDisabled = isPrimary || (!isSelected && isLimitReached);
+
+                <button class="mood-btn small @(isSelected ? "selected-secondary" : "")"
+                        @onclick="() => ToggleSecondaryMood(mood)"
+                        disabled="@isDisabled">
+                    @mood.Emoji @mood.Name
+                </button>
+            }
         </div>
 
         <div class="meta-card">
