@@ -147,7 +147,8 @@ a, .btn-link {
 
 
 .auth-card {
-    background: var(--color-primary);
+    background: var(--color-surface);
+    color:var(--color-text);
     padding: 2.5rem;
     border-radius: 16px;
     box-shadow: 0 4px 12px rgba(47, 62, 46, 0.1);
@@ -159,14 +160,14 @@ a, .btn-link {
 
 .auth-subtitle {
     font-size: 0.9rem;
-    color: #666;
+    color: var(--color-text-muted);
     margin-bottom: 1.5rem;
 }
 
 .auth-input {
     width: 100%;
     margin-bottom: 1rem;
-    border-radius:12px;
+    border-radius:2px;
 }
 
 .auth-btn {

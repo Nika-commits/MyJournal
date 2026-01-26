@@ -11,7 +11,9 @@
                          TextFieldType="TextFieldType.Password"
                          Placeholder="0000"
                          MaxLength="4"
-                         Class="auth-input" />
+                         Class="auth-input" 
+                         @onkeyup="HandleKeyUp"
+                         />
 
         <FluentButton Appearance="Appearance.Accent"
                       OnClick="Unlock"

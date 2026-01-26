@@ -21,6 +21,7 @@ namespace MyJournal
 
             builder.Services.AddMauiBlazorWebView();
             builder.Services.AddFluentUIComponents();
+            builder.Services.AddSingleton<ThemeService>();
             builder.Services.AddSingleton<MyJournal.Services.DatabaseService>();
             builder.Services.AddScoped<AuthSession>();
             builder.Services.AddSingleton<IAuthService, AuthService>();

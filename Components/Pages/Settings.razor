@@ -1,4 +1,46 @@
-﻿@page "/settings";
+﻿@page "/settings"
 
-<h3>Settings</h3>
+<div class="settings-page">
+    <div class="settings-header">
+        <h2>Settings</h2>
+    </div>
+
+    <div class="settings-group">
+        <h4 class="group-title">Appearance</h4>
+
+        <div class="setting-item">
+            <div class="setting-label">
+                <span class="main-text">Dark Mode</span>
+                <span class="sub-text">Switch between light and dark themes</span>
+            </div>
+
+            <button class="toggle-switch @(Theme.IsDarkMode ? "active" : "")" @onclick="ToggleTheme">
+                <div class="toggle-thumb"></div>
+            </button>
+        </div>
+    </div>
+
+    <div class="settings-group">
+        <h4 class="group-title">Security</h4>
+
+        <div class="setting-item clickable" @onclick="GoToProfile">
+            <div class="setting-label">
+                <span class="main-text">PIN Lock</span>
+                <span class="sub-text">Manage your app security</span>
+            </div>
+            <div class="chevron">›</div>
+        </div>
+    </div>
+
+    <div class="settings-group">
+        <h4 class="group-title">About</h4>
+        <div class="setting-item">
+            <div class="setting-label">
+                <span class="main-text">Version</span>
+            </div>
+            <div class="setting-value">1.0.0</div>
+        </div>
+    </div>
+
+</div>
 

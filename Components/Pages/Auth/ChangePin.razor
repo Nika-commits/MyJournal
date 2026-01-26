@@ -1,0 +1,25 @@
+﻿@page "/change-pin"
+@using MyJournal.Components.Pages.Auth
+
+<div class="auth-container">
+    @if (!isVerified)
+    {
+        <div class="step-container">
+            <h3>Verify Identity</h3>
+            <p class="auth-subtitle">Please enter your current PIN first.</p>
+            
+            <UnlockPin OnSuccess="HandleVerified" />
+            
+            <button class="btn-link mt-3" @onclick="Cancel">Cancel</button>
+        </div>
+    }
+    else
+    {
+        <div class="step-container">
+            <SetPin OnSuccess="HandlePinChanged" />
+            
+            <button class="btn-link mt-3" @onclick="Cancel">Cancel</button>
+        </div>
+    }
+</div>
+

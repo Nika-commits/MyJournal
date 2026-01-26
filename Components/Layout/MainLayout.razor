@@ -1,5 +1,10 @@
 ﻿@inherits LayoutComponentBase
 @using MyJournal.Components.Pages.Auth
+@using MyJournal.Services
+@using MyJournal.Components.Shared
+
+@inject ThemeService Theme
+@implements IDisposable
 
 <FluentToastProvider />
 <FluentDialogProvider />
@@ -10,7 +15,9 @@
 <MyJournal.Components.Shared.Toast />
 
 <AuthGuard>
-    <div class="page">
+
+    <div class="page @(Theme.IsDarkMode ? "dark-mode" : "")">
+
         <div class="sidebar">
             <NavMenu />
         </div>
@@ -19,4 +26,6 @@
             @Body
         </main>
     </div>
+
 </AuthGuard>
+

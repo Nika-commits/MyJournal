@@ -1,0 +1,116 @@
+.settings-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.settings-header {
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 10px;
+}
+
+h2 {
+    font-family: 'Lora', serif;
+    margin: 0;
+}
+
+.settings-group {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 0 20px; 
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px var(--color-shadow);
+    overflow: hidden;
+}
+
+.group-title {
+    margin: 20px 0 10px 0;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-family: 'Nunito', sans-serif;
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--color-border);
+}
+
+    /* Remove border from last item */
+    .setting-item:last-child {
+        border-bottom: none;
+    }
+
+    .setting-item.clickable {
+        cursor: pointer;
+    }
+
+        .setting-item.clickable:hover .main-text {
+            color: var(--color-primary);
+        }
+
+.setting-label {
+    display: flex;
+    flex-direction: column;
+}
+
+.main-text {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.sub-text {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+}
+
+.setting-value {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+}
+
+.chevron {
+    color: var(--color-text-muted);
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.toggle-switch {
+    width: 50px;
+    height: 28px;
+    background-color: var(--color-border); 
+    border-radius: 30px;
+    border: none;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding: 2px;
+}
+
+    .toggle-switch.active {
+        background-color: var(--color-primary); 
+    }
+
+.toggle-thumb {
+    width: 24px;
+    height: 24px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.toggle-switch.active .toggle-thumb {
+    transform: translateX(22px); 
+}
