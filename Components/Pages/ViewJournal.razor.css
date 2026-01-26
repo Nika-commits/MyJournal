@@ -1,5 +1,4 @@
 .view-container {
-    max-width: 800px;
     margin: 0 auto;
     padding: 20px;
     position: relative;
@@ -20,7 +19,6 @@
         background-color: #f0f0f0;
     }
 
-/* Re-using paper-sheet but with specific tweaks */
 .paper-sheet.read-only {
     padding: 50px;
     min-height: 70vh;

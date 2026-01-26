@@ -2,9 +2,10 @@
 .journal-editor-container {
     display: flex;
     gap: 30px;
-    height: 100%;
-    max-width: 1200px;
+    height: calc(100vh - 20px);
+    width:100%;
     margin: 0 auto;
+    overflow:hidden;
 }
 
 /* LEFT: The Paper Sheet */
@@ -15,8 +16,17 @@
     padding: 40px;
     display: flex;
     flex-direction: column;
+    height:100%;
+    min-height:0;
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     min-height: 600px;
+}
+
+#editor-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Take all remaining vertical space */
+    min-height: 0; /* Crucial for scrolling to work inside flex items */
 }
 /* Remove Quill's borders to match your minimalist "paper" style */
 .ql-toolbar.ql-snow {
@@ -24,12 +34,14 @@
     border-bottom: 1px solid #f0f0f0 !important;
     margin-bottom: 10px;
     padding: 8px 0 !important;
+    flex-shrink:0;
 }
 
 .ql-container.ql-snow {
     border: none !important;
-    flex: 1; /* Makes it fill the sheet */
+    flex-grow: 1; /* Makes it fill the sheet */
     font-family: 'Nunito', sans-serif !important;
+    overflow-y:auto;
 }
 
 /* Style the actual editing area */

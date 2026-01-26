@@ -8,14 +8,17 @@ namespace MyJournal.Components.Pages
     public partial class TodaysJournal : ComponentBase
     {
         [Inject] public DatabaseService DbService { get; set; } = default!;
-
         [Inject] public NavigationManager NavManager { get; set; } = default!;
         [Inject] public ToastService Toast { get; set; } = default!;
 
         public Journal CurrentEntry { get; set; } = new Journal();
-        public string StatusMessage { get; set; } = "";
+
+        private bool isLoaded = false;
+        private bool IsEditorInitialized = false;
 
         public List<string> MoodOptions = ["Happy", "Excited", "Calm", "Sad", "Stressed", "Angry"];
+
+
         protected override async Task OnInitializedAsync()
         {
             var existing = await DbService.GetTodaysJournalAsync();
@@ -33,12 +36,15 @@ namespace MyJournal.Components.Pages
 
 
             }
+            isLoaded = true;
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            if (firstRender)
+            if (isLoaded && !IsEditorInitialized)
             {
+                IsEditorInitialized = true;
+
                 await JS.InvokeVoidAsync("initQuill", "editor-container");
 
                 if (!string.IsNullOrEmpty(CurrentEntry.Content))
@@ -61,7 +67,6 @@ namespace MyJournal.Components.Pages
             CurrentEntry.UpdatedAt = DateTime.UtcNow;
 
             await DbService.SaveJournalAsync(CurrentEntry);
-            StatusMessage = $"Journal saved at {DateTime.Now:HH:mm}";
             StateHasChanged();
 
             Toast.ShowToast($"Saved at {DateTime.Now:HH:mm}");

@@ -6,25 +6,34 @@
 
 
 <div class="journal-editor-container">
-    
+
     <div class="paper-sheet">
         <div class="sheet-header">
-            <input type="text" 
-                   @bind="CurrentEntry.Title" 
-                   class="title-input" 
+            <input type="text"
+                   @bind="CurrentEntry.Title"
+                   class="title-input"
                    placeholder="Title..." />
-            
+
             <div class="date-display">
-                 @CurrentEntry.EntryDate.ToString("MMMM dd, yyyy")
+                @CurrentEntry.EntryDate.ToString("MMMM dd, yyyy")
             </div>
         </div>
 
-      @*   <textarea @bind="CurrentEntry.Content" 
+        @*   <textarea @bind="CurrentEntry.Content" 
                   class="content-area" 
                   placeholder="Write your thoughts here...">
         </textarea> *@
 
-        <div id="editor-container"></div>
+        @if (!isLoaded)
+
+        {
+            <div class="loading-spinner">Loading your Journal ... </div>
+        }
+        else
+        {
+            <div id="editor-container"></div>
+
+        }
     </div>
 
 
@@ -45,9 +54,9 @@
 
         <div class="meta-card">
             <h4>Tags</h4>
-            <input type="text" 
-                   @bind="CurrentEntry.Tags" 
-                   class="input-field" 
+            <input type="text"
+                   @bind="CurrentEntry.Tags"
+                   class="input-field"
                    placeholder="e.g. Work, Gym" />
         </div>
 
