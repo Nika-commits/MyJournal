@@ -7,23 +7,24 @@
         <h3>Unlock Journal</h3>
         <p class="auth-subtitle">Enter your 4-digit PIN to continue</p>
 
-        <FluentTextField @bind-Value="pin"
-                         TextFieldType="TextFieldType.Password"
-                         Placeholder="0000"
-                         MaxLength="4"
-                         Class="auth-input" 
-                         @onkeyup="HandleKeyUp"
-                         />
+<input type="password"
+       class="auth-input"
+       placeholder="0000"
+       maxlength="4"
+       @bind="pin"
+       @bind:event="oninput"
+       @onkeydown="HandleKeyDown"
+       @ref="pinInput" />
 
-        <FluentButton Appearance="Appearance.Accent"
-                      OnClick="Unlock"
-                      Class="auth-btn">
-            Confirm
-        </FluentButton>
+<button class="auth-btn"
+        @onclick="Unlock">
+    Confirm
+</button>
 
-        @if (!string.IsNullOrEmpty(message))
-        {
-            <p class="validation-message">@message</p>
-        }
+@if (!string.IsNullOrEmpty(message))
+{
+    <p class="validation-message">@message</p>
+}
+
     </div>
 </div>

@@ -6,17 +6,20 @@
         <h3>Set Your PIN</h3>
         <p class="auth-subtitle">Create a 4-digit PIN to secure your entries</p>
 
-        <FluentTextField TextFieldType="TextFieldType.Password"
-                         @bind-Value="pin"
-                         MaxLength="4"
-                         Placeholder="Enter PIN"
-                         Class="auth-input" />
 
-        <FluentButton Appearance="Appearance.Accent"
-                      OnClick="SavePin"
-                      Class="auth-btn">
-            Set PIN
-        </FluentButton>
+        <input type="password"
+       class="auth-input"
+       placeholder="0000"
+       maxlength="4"
+       @bind="pin"
+       @bind:event="oninput"
+       @onkeydown="HandleKeyDown"
+       @ref="pinInput" />
+
+<button class="auth-btn"
+        @onclick="SavePin">
+    Confirm
+</button>
 
         @if (!string.IsNullOrEmpty(errorMessage))
         {

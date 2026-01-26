@@ -6,26 +6,23 @@
 @inject ThemeService Theme
 @implements IDisposable
 
-<FluentToastProvider />
-<FluentDialogProvider />
-<FluentTooltipProvider />
-<FluentMessageBarProvider />
-<FluentMenuProvider />
+
 
 <MyJournal.Components.Shared.Toast />
 
-<AuthGuard>
+<div class="app-root @(Theme.IsDarkMode ? "dark-mode" : "")">
 
-    <div class="page @(Theme.IsDarkMode ? "dark-mode" : "")">
+    <AuthGuard>
+        <div class="page">
+            <div class="sidebar">
+                <NavMenu />
+            </div>
 
-        <div class="sidebar">
-            <NavMenu />
+            <main class="content">
+                @Body
+            </main>
         </div>
+    </AuthGuard>
 
-        <main class="content">
-            @Body
-        </main>
-    </div>
-
-</AuthGuard>
+</div>
 
