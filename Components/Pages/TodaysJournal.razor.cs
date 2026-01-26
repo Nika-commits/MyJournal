@@ -16,6 +16,8 @@ namespace MyJournal.Components.Pages
         private bool isLoaded = false;
         private bool IsEditorInitialized = false;
 
+        private string selectedCategory = "Positive";
+        private List<string> selectedTags = new();
         //public List<string> MoodOptions = ["Happy", "Excited", "Calm", "Sad", "Stressed", "Angry"];
 
         public void SetPrimaryMood(MoodItem mood)
@@ -65,6 +67,10 @@ namespace MyJournal.Components.Pages
 
             }
             isLoaded = true;
+
+            if (!string.IsNullOrEmpty(CurrentEntry.Tags)) selectedTags = CurrentEntry.Tags.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+
+            if (!string.IsNullOrEmpty(CurrentEntry.MoodCategory)) selectedCategory = CurrentEntry.MoodCategory;
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -82,10 +88,24 @@ namespace MyJournal.Components.Pages
             }
         }
 
+        public void SelectCategory(string category)
+        {
+            selectedCategory = category;
+        }
+
+        public void ToggleTag(string tag)
+        {
+            if (selectedTags.Contains(tag)) selectedTags.Remove(tag);
+            else selectedTags.Add(tag);
+
+            CurrentEntry.Tags = string.Join(",", selectedTags);
+        }
+
         //public void SetMood(string mood)
         //{
         //    CurrentEntry.Mood = mood;
         //}
+
 
         public async Task SaveEntry()
         {

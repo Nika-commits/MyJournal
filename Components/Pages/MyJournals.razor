@@ -11,24 +11,25 @@
         </a>
     </div>
     <div class="filter-section">
-    <div class="search-box">
-        <input type="text" 
-               placeholder="Search Journals..." 
-               @bind="searchTerm" 
-               @bind:event="oninput" 
-               @onkeyup="ExecuteSearch" /> 
-    </div>
+        <div class="search-box">
+            <input type="text" placeholder="Search..." @bind="searchTerm" @bind:event="oninput" @onkeyup="ExecuteSearch" />
+        </div>
 
-    <select class="mood-filter" @onchange="OnMoodChanged">
-        <option value="All">All Moods</option>
-        <option value="Happy">😊 Happy</option>
-        <option value="Excited">🤩 Excited</option>
-        <option value="Calm">😌 Calm</option>
-        <option value="Sad">😢 Sad</option>
-        <option value="Stressed">😫 Stressed</option>
-        <option value="Angry">😡 Angry</option>
-    </select>
-</div>
+        <select class="filter-dropdown" @onchange="OnCategoryChanged">
+            <option value="All">All Vibes</option>
+            <option value="Positive">Positive</option>
+            <option value="Neutral">Neutral</option>
+            <option value="Negative">Negative</option>
+        </select>
+
+        <select class="filter-dropdown" @onchange="OnTagChanged">
+            <option value="All">All Tags</option>
+            @foreach (var tag in MoodHelperService.PredefinedTags)
+            {
+                <option value="@tag">@tag</option>
+            }
+        </select>
+    </div>
 
     @if (JournalList == null || JournalList.Count == 0)
     {

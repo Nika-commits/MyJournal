@@ -7,11 +7,21 @@ namespace MyJournal.Services
     {
         public string Name { get; set; } = "";
         public string Emoji { get; set; } = "";
-        public string Category { get; set; } = ""; 
+        public string Category { get; set; } = "";
     }
 
     public static class MoodHelperService
     {
+        public static List<string> PredefinedTags = new()
+        {
+            "Work", "Career", "Studies", "Family", "Friends", "Relationships",
+            "Health", "Fitness", "Personal Growth", "Self-care", "Hobbies", "Travel", "Nature",
+            "Finance", "Spirituality", "Birthday", "Holiday", "Vacation", "Celebration", "Exercise",
+            "Reading", "Writing", "Cooking", "Meditation", "Yoga", "Music", "Shopping", "Parenting",
+            "Projects", "Planning", "Reflection"
+        };
+
+
         public static List<MoodItem> AllMoods = new()
         {
             new MoodItem { Name = "Happy", Emoji = "😊", Category = "Positive" },

@@ -170,3 +170,77 @@ h2 {
     .btn-delete:hover {
         opacity: 1;
     }
+
+/* Category Buttons */
+.category-selector {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.cat-btn {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #eee;
+    background: white;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+    /* Active States colors */
+    .cat-btn.positive.active {
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+        color: #155724;
+    }
+
+    .cat-btn.neutral.active {
+        background-color: #e2e3e5;
+        border-color: #d6d8db;
+        color: #383d41;
+    }
+
+    .cat-btn.negative.active {
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        color: #721c24;
+    }
+
+/* Tag Cloud */
+.tags-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    max-height: 200px; /* Scrollable if too many tags */
+    overflow-y: auto;
+}
+
+.tag-chip {
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+}
+
+    .tag-chip:hover {
+        background: #e9ecef;
+    }
+
+    .tag-chip.selected {
+        background-color: var(--color-primary); /* Sage Green */
+        color: white;
+        border-color: var(--color-primary);
+    }
+
+/* MyJournals Filters */
+.filter-dropdown {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    min-width: 120px;
+}

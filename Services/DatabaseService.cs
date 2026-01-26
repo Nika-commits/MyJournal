@@ -46,20 +46,29 @@ namespace MyJournal.Services
         }
 
 
-        public async Task<List<Journal>> SearchJournalsAsync(string keyword, string? selectedMood = null)
+        public async Task<List<Journal>> SearchJournalsAsync(string keyword, string? category = null, string? tag = null)
         {
             await InitAsync();
             var query = _database!.Table<Journal>();
+
             if (!string.IsNullOrWhiteSpace(keyword))
             {
                 query = query.Where(j => j.Title.Contains(keyword) || j.Content.Contains(keyword));
             }
-            if (!string.IsNullOrWhiteSpace(selectedMood) && selectedMood != "All")
+
+            if(!string.IsNullOrWhiteSpace(category) && category != "All")
             {
-                query = query.Where(j => j.PrimaryMood == selectedMood);
+                query = query.Where(j => j.MoodCategory == category);
             }
+
+            if (!string.IsNullOrWhiteSpace(tag) && tag!= "All")
+            {
+                query = query.Where(j => j.Tags.Contains(tag));
+            }
+
             return await query.OrderByDescending(j => j.EntryDate).ToListAsync();
         }
+
 
         public async Task<Journal> GetEntryByDateAsync(DateTime date)
         {

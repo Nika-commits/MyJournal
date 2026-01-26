@@ -39,12 +39,29 @@
 
 
     <div class="metadata-panel">
+
         <div class="meta-card">
-            <h4>How are you feeling?</h4>
+            <h4>1. How was your day?</h4>
+            <div class="category-selector">
+                <button class="cat-btn positive @(selectedCategory == "Positive" ? "active" : "")"
+                        @onclick='() => SelectCategory("Positive")'>
+                    Positive
+                </button>
+                <button class="cat-btn neutral @(selectedCategory == "Neutral" ? "active" : "")"
+                        @onclick='() => SelectCategory("Neutral")'>
+                    Neutral
+                </button>
+                <button class="cat-btn negative @(selectedCategory == "Negative" ? "active" : "")"
+                        @onclick='() => SelectCategory("Negative")'>
+                    Negative
+                </button>
+            </div>
+
+            <h4 style="margin-top:15px">2. Specifically...</h4>
             <div class="mood-selector">
-                @foreach (var mood in MoodHelperService.AllMoods)
+                @foreach (var mood in MoodHelperService.AllMoods.Where(m => m.Category == selectedCategory))
                 {
-                    <button class="mood-btn @(CurrentEntry.PrimaryMood == mood.Name ? "selected" : "")"
+                    <button class="mood-btn @(CurrentEntry.PrimaryMood == mood.Name ? "selected-primary" : "")"
                             @onclick="() => SetPrimaryMood(mood)">
                         @mood.Emoji @mood.Name
                     </button>
@@ -52,39 +69,22 @@
             </div>
         </div>
 
-        <h4 style="margin-top: 20px;">Secondary Moods (Max 2)</h4>
-        <div class="mood-selector secondary-grid">
-            @foreach (var mood in MoodHelperService.AllMoods)
-            {
-                var isPrimary = CurrentEntry.PrimaryMood == mood.Name;
-                var isSelected = CurrentEntry.SecondaryMoodList.Contains(mood.Name);
-                var isLimitReached = CurrentEntry.SecondaryMoodList.Count >= 2;
-                var isDisabled = isPrimary || (!isSelected && isLimitReached);
-
-                <button class="mood-btn small @(isSelected ? "selected-secondary" : "")"
-                        @onclick="() => ToggleSecondaryMood(mood)"
-                        disabled="@isDisabled">
-                    @mood.Emoji @mood.Name
-                </button>
-            }
-        </div>
-
         <div class="meta-card">
             <h4>Tags</h4>
-            <input type="text"
-                   @bind="CurrentEntry.Tags"
-                   class="input-field"
-                   placeholder="e.g. Work, Gym" />
+            <div class="tags-cloud">
+                @foreach (var tag in MoodHelperService.PredefinedTags)
+                {
+                    <span class="tag-chip @(selectedTags.Contains(tag) ? "selected" : "")"
+                          @onclick="() => ToggleTag(tag)">
+                        @tag
+                    </span>
+                }
+            </div>
         </div>
 
         <div class="action-area">
-            <button class="btn-primary full-width" @onclick="SaveEntry">
-                Save
-            </button>
-            <button class="btn-secondary full-width" @onclick="Cancel">
-                Cancel
-            </button>
+            <button class="btn-primary full-width" @onclick="SaveEntry">Save Entry</button>
+            <button class="btn-secondary full-width" @onclick="Cancel">Cancel</button>
         </div>
-
     </div>
 </div>

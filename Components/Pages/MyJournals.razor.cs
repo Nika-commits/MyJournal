@@ -19,7 +19,8 @@ namespace MyJournal.Components.Pages
         private Journal? entryToDelete;
 
         private string searchTerm = string.Empty;
-        private string selectedMood = "All";
+        private string filterCategory = "All";
+        private string filterTag = "All";
         protected override async Task OnInitializedAsync()
         {
             await LoadJournals();
@@ -27,12 +28,17 @@ namespace MyJournal.Components.Pages
 
         private async Task ExecuteSearch()
         {
-            JournalList = await DbService.SearchJournalsAsync(searchTerm, selectedMood);
+            JournalList = await DbService.SearchJournalsAsync(searchTerm, filterCategory, filterTag);
         }
 
-        private async Task OnMoodChanged(ChangeEventArgs e)
+        private async Task OnCategoryChanged(ChangeEventArgs e)
         {
-            selectedMood = e.Value?.ToString() ?? "All";
+            filterCategory = e.Value?.ToString() ?? "All";
+            await ExecuteSearch();
+        }
+        private async Task OnTagChanged(ChangeEventArgs e)
+        {
+            filterTag = e.Value?.ToString() ?? "All";
             await ExecuteSearch();
         }
 

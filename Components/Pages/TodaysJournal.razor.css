@@ -192,3 +192,77 @@ h4 {
     padding: 5px 10px;
     font-size: 0.85rem;
 }
+/* --- CATEGORY SELECTOR STYLES --- */
+.category-selector {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.cat-btn {
+    flex: 1; /* Makes them split width equally */
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    font-weight: bold;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+    .cat-btn:hover {
+        background-color: #f9f9f9;
+    }
+
+    /* Active State Colors */
+    .cat-btn.positive.active {
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+        color: #155724;
+    }
+
+    .cat-btn.neutral.active {
+        background-color: #e2e3e5;
+        border-color: #d6d8db;
+        color: #383d41;
+    }
+
+    .cat-btn.negative.active {
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        color: #721c24;
+    }
+
+/* --- TAG CLOUD STYLES --- */
+.tags-cloud {
+    display: flex;
+    flex-wrap: wrap; /* This prevents the "overflow" issue */
+    gap: 8px;
+    margin-top: 5px;
+    max-height: 300px; /* Optional: adds scroll if too many tags */
+    overflow-y: auto;
+}
+
+.tag-chip {
+    background-color: #f1f3f5;
+    color: #495057;
+    padding: 6px 14px;
+    border-radius: 20px; /* Pill shape */
+    font-size: 0.85rem;
+    cursor: pointer; /* Makes it look clickable */
+    border: 1px solid transparent;
+    transition: all 0.2s;
+    user-select: none; /* Prevents text highlighting when clicking fast */
+}
+
+    .tag-chip:hover {
+        background-color: #e9ecef;
+        transform: translateY(-1px);
+    }
+
+    .tag-chip.selected {
+        background-color: #8FA885; /* Sage Green */
+        color: white;
+        box-shadow: 0 2px 5px rgba(143, 168, 133, 0.4);
+    }
