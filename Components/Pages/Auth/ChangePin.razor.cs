@@ -20,7 +20,7 @@ namespace MyJournal.Components.Pages.Auth
 
     private void HandlePinChanged()
         {
-            Toast.ShowToast("PIN updated successfully! 🔒", ToastLevel.Success);
+            Toast.ShowToast("PIN updated successfully", ToastLevel.Success);
             Nav.NavigateTo("/settings");
         }
 
