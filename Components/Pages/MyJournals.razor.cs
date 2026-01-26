@@ -21,6 +21,13 @@ namespace MyJournal.Components.Pages
         private string searchTerm = string.Empty;
         private string filterCategory = "All";
         private string filterTag = "All";
+
+        private int CurrentPage = 1;
+        private int PageSize = 10;
+        private int TotalEntries = 0;
+        private int TotalPages => (int)Math.Ceiling((double)TotalEntries / PageSize);
+        private bool CanGoBack => CurrentPage > 1;
+        private bool CanGoNext => CurrentPage < TotalPages;
         protected override async Task OnInitializedAsync()
         {
             await LoadJournals();
@@ -28,7 +35,16 @@ namespace MyJournal.Components.Pages
 
         private async Task ExecuteSearch()
         {
-            JournalList = await DbService.SearchJournalsAsync(searchTerm, filterCategory, filterTag);
+            if(string.IsNullOrWhiteSpace(searchTerm) && filterCategory =="All" && filterTag == "All")
+            {
+                CurrentPage = 1;
+                await LoadJournals();
+            }
+            else
+            {
+                JournalList = await DbService.SearchJournalsAsync(searchTerm, filterCategory, filterTag);
+                TotalEntries = 0;
+            }
         }
 
         private async Task OnCategoryChanged(ChangeEventArgs e)
@@ -44,7 +60,28 @@ namespace MyJournal.Components.Pages
 
         private async Task LoadJournals()
         {
-            JournalList = await DbService.GetJournalsAsync();
+            TotalEntries = await DbService.GetTotalCountAsync();
+            int skip = (CurrentPage - 1) * PageSize;
+            JournalList = await DbService.GetJournalsPaginatedAsync(skip, PageSize);
+
+        }
+
+        private async Task NextPage()
+        {
+            if (CanGoNext)
+            {
+                CurrentPage++;
+                await LoadJournals();
+            }
+        }
+
+        private async Task PreviousPage()
+        {
+            if (CanGoBack)
+            {
+                CurrentPage--;
+                await LoadJournals();
+            }
         }
 
         public string GetPreview(string content)
@@ -60,7 +97,7 @@ namespace MyJournal.Components.Pages
         {
             NavManager.NavigateTo($"/viewJournal/{id}");
         }
-      
+
 
         public void RequestDeleteEntry(Journal entry)
         {

@@ -48,7 +48,6 @@
                 <div class="bars-container">
                     @foreach (var mood in Stats.MoodCounts)
                     {
-                        // Calculate percentage for width
                         double percent = (double)mood.Value / Stats.TotalEntries * 100;
 
                         <div class="bar-row">
@@ -90,6 +89,3 @@
     }
 </div>
 
-@code {
-
-}

@@ -21,6 +21,18 @@ namespace MyJournal.Services
 
         }
 
+        public async Task<List<Journal>> GetJournalsPaginatedAsync(int skip, int take)
+        {
+            await InitAsync();
+            return await _database!.Table<Journal>().OrderByDescending(j => j.EntryDate).Skip(skip).Take(take).ToListAsync();
+        }
+
+        public async Task<int> GetTotalCountAsync()
+        {
+            await InitAsync();
+            return await _database!.Table<Journal>().CountAsync();
+        }
+
         public async Task<List<Journal>> GetJournalsAsync()
         {
             await InitAsync();
@@ -114,6 +126,7 @@ namespace MyJournal.Services
 
             var allEntries = await _database.Table<Journal>().OrderByDescending(j => j.EntryDate).ToListAsync();
 
+
             var stats = new JournalStats
             {
                 TotalEntries = allEntries.Count,
@@ -187,6 +200,27 @@ namespace MyJournal.Services
                                       .FirstOrDefault();
 
             if (moodGroups != null) stats.TopMood = moodGroups.Key;
+
+            var moodCounts = new Dictionary<string, int>();
+
+            foreach (var entry in allEntries)
+            {
+                if (!string.IsNullOrEmpty(entry.MoodCategory))
+                {
+                    if (moodCounts.ContainsKey(entry.MoodCategory)) moodCounts[entry.MoodCategory]++;
+                    else moodCounts[entry.MoodCategory] = 1;
+                }
+                else if (!string.IsNullOrEmpty(entry.PrimaryMood))
+                {
+                    var foundCategory = MoodHelperService.AllMoods.FirstOrDefault(m => m.Name == entry.PrimaryMood)?.Category;
+                    if (!string.IsNullOrEmpty(foundCategory))
+                    {
+                        if (moodCounts.ContainsKey(foundCategory)) moodCounts[foundCategory]++;
+                        else moodCounts[foundCategory] = 1;
+                    }
+                }
+            }
+            stats.MoodCounts = moodCounts;
 
             var tagDict = new Dictionary<string, int>();
             foreach (var entry in allEntries)

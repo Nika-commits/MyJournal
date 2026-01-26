@@ -97,7 +97,7 @@
     flex-direction: column;
     gap: 20px;
     height:100%;
-    overflow: hidden;
+    overflow: auto;
 }
 
 .meta-card {

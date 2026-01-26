@@ -32,11 +32,11 @@ namespace MyJournal.Components.Pages
 
             if (list.Contains(mood.Name))
             {
-                list.Remove(mood.Name); 
+                list.Remove(mood.Name);
             }
             else
             {
-                if (list.Count < 2) 
+                if (list.Count < 2)
                 {
                     list.Add(mood.Name);
                 }
@@ -59,7 +59,7 @@ namespace MyJournal.Components.Pages
                 CurrentEntry = new Journal
                 {
                     EntryDate = DateTime.Today,
-                    Id = Guid.NewGuid(), 
+                    Id = Guid.NewGuid(),
                     Title = "",
                     Content = "",
                 };
@@ -114,9 +114,17 @@ namespace MyJournal.Components.Pages
             CurrentEntry.Content = await JS.InvokeAsync<string>("getQuillHtml");
             CurrentEntry.UpdatedAt = DateTime.UtcNow;
 
+            if (string.IsNullOrEmpty(CurrentEntry.MoodCategory) && !string.IsNullOrEmpty(CurrentEntry.PrimaryMood))
+            {
+                var moodDef = MoodHelperService.AllMoods.FirstOrDefault(m => m.Name == CurrentEntry.PrimaryMood);
+                if (moodDef != null)
+                {
+                    CurrentEntry.MoodCategory = moodDef.Category;
+                }
+            }
+
             await DbService.SaveJournalAsync(CurrentEntry);
             StateHasChanged();
-
             Toast.ShowToast($"Saved at {DateTime.Now:HH:mm}");
         }
 

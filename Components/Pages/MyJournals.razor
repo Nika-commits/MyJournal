@@ -10,26 +10,26 @@
             + New Entry
         </a>
     </div>
-    <div class="filter-section">
-        <div class="search-box">
-            <input type="text" placeholder="Search..." @bind="searchTerm" @bind:event="oninput" @onkeyup="ExecuteSearch" />
-        </div>
-
-        <select class="filter-dropdown" @onchange="OnCategoryChanged">
-            <option value="All">All Vibes</option>
-            <option value="Positive">Positive</option>
-            <option value="Neutral">Neutral</option>
-            <option value="Negative">Negative</option>
-        </select>
-
-        <select class="filter-dropdown" @onchange="OnTagChanged">
-            <option value="All">All Tags</option>
-            @foreach (var tag in MoodHelperService.PredefinedTags)
-            {
-                <option value="@tag">@tag</option>
-            }
-        </select>
+  <div class="filter-section">
+    <div class="search-box">
+        <input type="text" placeholder="Search..." @bind="searchTerm" @bind:event="oninput" @onkeyup="ExecuteSearch" />
     </div>
+
+    <select class="filter-dropdown" @onchange="OnCategoryChanged">
+        <option value="All">All Vibes</option>
+        <option value="Positive">Positive</option>
+        <option value="Neutral">Neutral</option>
+        <option value="Negative">Negative</option>
+    </select>
+
+    <select class="filter-dropdown" @onchange="OnTagChanged">
+        <option value="All">All Tags</option>
+        @foreach(var tag in MoodHelperService.PredefinedTags)
+        {
+            <option value="@tag">@tag</option>
+        }
+    </select>
+</div>
 
     @if (JournalList == null || JournalList.Count == 0)
     {
@@ -59,13 +59,30 @@
 
                     <div class="card-footer">
                         <span class="tags">@entry.Tags</span>
-                        <button class="btn-delete" @onclick="() => RequestDeleteEntry(entry)">
+                        <button class="btn-delete" @onclick="() => RequestDeleteEntry(entry)" @onclick:stopPropagation="true">
                             🗑️
                         </button>
                     </div>
                 </div>
             }
         </div>
+
+        @if (TotalEntries > 0)
+        {
+            <div class="pagination-controls">
+                <button class="page-btn" @onclick="PreviousPage" disabled="@(!CanGoBack)">
+                    ← Previous
+                </button>
+
+                <span class="page-info">
+                    Page @CurrentPage of @TotalPages
+                </span>
+
+                <button class="page-btn" @onclick="NextPage" disabled="@(!CanGoNext)">
+                    Next →
+                </button>
+            </div>
+        }
     }
 </div>
 
