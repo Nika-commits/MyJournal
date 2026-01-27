@@ -5,6 +5,7 @@ using Microsoft.FluentUI.AspNetCore.Components;
 using MyJournal.Services;
 using MyJournal.Components.Models;
 using MyJournal.Services.AuthService;
+
 namespace MyJournal
 {
     public static class MauiProgram
@@ -27,7 +28,10 @@ namespace MyJournal
             builder.Services.AddSingleton<IAuthService, AuthService>();
             builder.Services.AddScoped<MyJournal.Services.ToastService>();
 
+#if WINDOWS
+            builder.Services.AddScoped<IPrintService, MyJournal.Services.PrintService>();
 
+#endif
 
 #if DEBUG
             builder.Services.AddBlazorWebViewDeveloperTools();

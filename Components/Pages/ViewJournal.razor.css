@@ -3,7 +3,38 @@
     padding: 20px;
     position: relative;
 }
+.header-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; 
+    gap: 15px;
+}
+.view-title {
+    font-family: 'Lora', serif;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: var(--color-text);
+    /* Remove bottom border here, we move it to sheet-header or leave it */
+    flex: 1; /* Allows title to take up space */
+    line-height: 1.2;
+}
 
+/* THE EXPORT BUTTON */
+.btn-export {
+    background: transparent;
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s;
+    white-space: nowrap; /* Prevents text breaking */
+}
 .btn-back {
     background: none;
     border: none;
@@ -27,14 +58,6 @@
     box-shadow: 0 4px 15px var(--color-shadow);
 }
 
-.view-title {
-    font-family: 'Lora', serif;
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-    color: var(--color-text);
-    border-bottom: 2px solid var(--color-border);
-    padding-bottom: 15px;
-}
 
 .view-meta {
     display: flex;
@@ -57,7 +80,7 @@
 .journal-content {
     font-size: 1.15rem;
     line-height: 1.8;
-    color: #333;
+    color: var(--color-text);
     font-family: 'Nunito', sans-serif;
 }
 
