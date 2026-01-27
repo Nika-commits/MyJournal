@@ -175,6 +175,7 @@ a, .btn-link {
 .auth-input {
     width: 100%;
     padding: 12px;
+    color: var(--color-text);
     margin-bottom: 1rem;
     border: 2px var(--color-primary);
     border-radius: 2px;
