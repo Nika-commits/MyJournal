@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿
+using MyJournal.Services.Interfaces;
 
 namespace MyJournal.Services
 {
-    public partial class ToastService : IDisposable
+    public partial class ToastService : IToastService ,IDisposable
     {
         public event Action<string, ToastLevel>? OnShow;
         public event Action? OnHide;

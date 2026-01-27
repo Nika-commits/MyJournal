@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Components;
-using MyJournal.Components.Models;
-using MyJournal.Services;
+using MyJournal.Models;
+using MyJournal.Services.Interfaces;
 
 namespace MyJournal.Components.Pages
 {
     public partial class MyJournals : ComponentBase
     {
         [Inject]
-        public DatabaseService DbService { get; set; } = default!;
+        public IDatabaseService DbService { get; set; } = default!;
 
         [Inject]
         public NavigationManager NavManager { get; set; } = default!;

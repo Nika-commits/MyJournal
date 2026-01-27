@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MyJournal.Services;
-using MyJournal.Components.Models;
+using MyJournal.Models;
 
 namespace MyJournal.Components.Pages
 {
@@ -11,7 +11,6 @@ namespace MyJournal.Components.Pages
 
         private DateTime displayDate = DateTime.Today;
 
-        // Dictionary makes looking up entries by date instant
         private Dictionary<DateTime, JournalMetadata> entryMap = new();
         private List<DateTime?> calendarDays = new();
 

@@ -1,15 +1,15 @@
-﻿using MyJournal.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.AspNetCore.Components;
+using MyJournal.Services.Interfaces;
+using MyJournal.Services;
 
 namespace MyJournal.Components.Shared
 {
-    public partial class Toast
+    public partial class Toast : IDisposable
     {
         private string Message { get; set; } = "";
         private string LevelClass { get; set; } = "toast-success";
         private bool IsVisible { get; set; }
+        [Inject] public IToastService ToastService { get; set; } = default!;
 
         protected override void OnInitialized()
         {

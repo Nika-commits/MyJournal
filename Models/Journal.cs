@@ -1,7 +1,7 @@
 ﻿
 using SQLite;
 
-namespace MyJournal.Components.Models
+namespace MyJournal.Models
 {
     public class Journal
     {

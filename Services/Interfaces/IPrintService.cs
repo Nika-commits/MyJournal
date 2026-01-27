@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MyJournal.Services
+namespace MyJournal.Services.Interfaces
 {
     public interface IPrintService
     {

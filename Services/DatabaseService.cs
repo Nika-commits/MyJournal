@@ -1,11 +1,12 @@
-﻿using MyJournal.Components.Models;
+﻿using MyJournal.Models;
+using MyJournal.Services.Interfaces;
 using SQLite;
 
 namespace MyJournal.Services
 {
-    public class DatabaseService
+    public class DatabaseService : IDatabaseService
     {
-        private SQLiteAsyncConnection _database;
+        private SQLiteAsyncConnection? _database;
         private bool _initialized;
 
         private async Task InitAsync()
@@ -96,6 +97,8 @@ namespace MyJournal.Services
             var startOfDay = DateTime.Today;
             var endOfDay = startOfDay.AddDays(1);
 
+            if(_database == null) throw new InvalidOperationException("Database not initialized.");
+
             return await _database.Table<Journal>().Where(j => j.EntryDate >= startOfDay && j.EntryDate < endOfDay).FirstOrDefaultAsync();
         }
 
@@ -123,7 +126,7 @@ namespace MyJournal.Services
         public async Task<JournalStats> GetJournalStatsAsync()
         {
             await InitAsync();
-
+            if(_database == null) throw new InvalidOperationException("Database not initialized.");
             var allEntries = await _database.Table<Journal>().OrderByDescending(j => j.EntryDate).ToListAsync();
 
 

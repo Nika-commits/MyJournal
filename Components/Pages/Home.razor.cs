@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
-using MyJournal.Components.Models;
-using MyJournal.Services;
+using MyJournal.Models;
+using MyJournal.Services.Interfaces;
 
 
 namespace MyJournal.Components.Pages
@@ -8,7 +8,7 @@ namespace MyJournal.Components.Pages
     public partial class Home
     {
         private JournalStats? Stats;
-
+        [Inject] public IDatabaseService DbService { get; set; } = default!;
         protected override async Task OnInitializedAsync()
         {
             Stats = await DbService.GetJournalStatsAsync();

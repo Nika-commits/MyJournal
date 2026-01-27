@@ -1,10 +1,9 @@
 ﻿
 @page "/viewJournal/{Id:guid}"
+@using MyJournal.Models
 @using MyJournal.Services
-@using MyJournal.Components.Models
-@inject DatabaseService DbService
-@inject NavigationManager NavManager
-@inject IPrintService PrintService
+@using MyJournal.Services.Interfaces
+
 
 <div class="view-container">
     @if (Entry == null)

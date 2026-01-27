@@ -1,15 +1,16 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using MyJournal.Components.Models;
+using MyJournal.Models;
 using MyJournal.Services;
+using MyJournal.Services.Interfaces;
 
 namespace MyJournal.Components.Pages
 {
     public partial class TodaysJournal : ComponentBase
     {
-        [Inject] public DatabaseService DbService { get; set; } = default!;
+        [Inject] public IDatabaseService DbService { get; set; } = default!;
         [Inject] public NavigationManager NavManager { get; set; } = default!;
-        [Inject] public ToastService Toast { get; set; } = default!;
+        [Inject] public IToastService Toast { get; set; } = default!;
 
         public Journal CurrentEntry { get; set; } = new Journal();
 

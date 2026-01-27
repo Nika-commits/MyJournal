@@ -1,5 +1,6 @@
 ﻿using MyJournal.Services;
 using Microsoft.AspNetCore.Components;
+using MyJournal.Services.Interfaces;
 
 namespace MyJournal.Components.Pages
 {
@@ -7,7 +8,7 @@ namespace MyJournal.Components.Pages
     {
         [Inject] public ThemeService Theme { get; set; } = default!;
         [Inject] public NavigationManager Nav { get; set; } = default!;
-        [Inject] public ToastService Toast { get; set; } = default!;
+        [Inject] public IToastService Toast { get; set; } = default!;
 
         protected override void OnInitialized()
         {

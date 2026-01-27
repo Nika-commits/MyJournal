@@ -1,6 +1,6 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using MyJournal.Services;
+using MyJournal.Services.Interfaces;
 using Windows.Graphics.Printing;
 
 

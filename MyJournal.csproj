@@ -58,6 +58,15 @@
     </ItemGroup>
 
     <ItemGroup>
+      <AndroidResource Remove="Components\Styles\**" />
+      <Compile Remove="Components\Styles\**" />
+      <Content Remove="Components\Styles\**" />
+      <EmbeddedResource Remove="Components\Styles\**" />
+      <MauiXaml Remove="Components\Styles\**" />
+      <None Remove="Components\Styles\**" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.13.2" />
         <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.13.2" />
         <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.13.2" />
@@ -68,7 +77,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Components\Styles\" />
       <Folder Include="wwwroot\css\" />
     </ItemGroup>
 

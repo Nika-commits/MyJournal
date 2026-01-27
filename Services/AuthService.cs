@@ -1,7 +1,8 @@
 ﻿using System.Text;
 using System.Security.Cryptography;
+using MyJournal.Services.Interfaces;
 
-namespace MyJournal.Services.AuthService
+namespace MyJournal.Services
 {
     public class AuthService : IAuthService
     {

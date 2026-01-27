@@ -1,10 +1,9 @@
 ﻿
 
 using Microsoft.Extensions.Logging;
-using Microsoft.FluentUI.AspNetCore.Components;
 using MyJournal.Services;
-using MyJournal.Components.Models;
-using MyJournal.Services.AuthService;
+using MyJournal.Models;
+using MyJournal.Services.Interfaces;
 
 namespace MyJournal
 {
@@ -21,12 +20,12 @@ namespace MyJournal
                 });
 
             builder.Services.AddMauiBlazorWebView();
-            builder.Services.AddFluentUIComponents();
+            //builder.Services.AddFluentUIComponents();
             builder.Services.AddSingleton<ThemeService>();
-            builder.Services.AddSingleton<MyJournal.Services.DatabaseService>();
+            builder.Services.AddSingleton<IDatabaseService,DatabaseService>();
             builder.Services.AddScoped<AuthSession>();
             builder.Services.AddSingleton<IAuthService, AuthService>();
-            builder.Services.AddScoped<MyJournal.Services.ToastService>();
+            builder.Services.AddScoped<IToastService, ToastService>();
 
 #if WINDOWS
             builder.Services.AddScoped<IPrintService, MyJournal.Services.PrintService>();

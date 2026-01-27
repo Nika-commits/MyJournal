@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
-using MyJournal.Components.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using MyJournal.Models;
+using MyJournal.Services.Interfaces;
 
 namespace MyJournal.Components.Pages
 {
@@ -10,6 +8,9 @@ namespace MyJournal.Components.Pages
     {
         [Parameter] public Guid Id { get; set; }
         private Journal? Entry;
+        [Inject] private IDatabaseService DbService { get; set; } = null!;
+        [Inject] private NavigationManager NavManager { get; set; } = null!;
+        [Inject] private IPrintService PrintService { get; set; } = null!;
 
         protected override async Task OnInitializedAsync()
         {

@@ -1,5 +1,4 @@
-﻿
-namespace MyJournal.Services.AuthService
+﻿namespace MyJournal.Services.Interfaces
 {
     public interface IAuthService
     {

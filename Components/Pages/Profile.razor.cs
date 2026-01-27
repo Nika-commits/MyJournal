@@ -1,7 +1,7 @@
-﻿using MyJournal.Components.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.AspNetCore.Components;
+using MyJournal.Models;
+using MyJournal.Services.Interfaces;
+
 
 namespace MyJournal.Components.Pages
 {
@@ -9,6 +9,7 @@ namespace MyJournal.Components.Pages
     {
         private JournalStats? Stats;
         private string MemberSince = "Recently";
+        [Inject] public IDatabaseService DbService { get; set; } = default!;
 
         protected override async Task OnInitializedAsync()
         {
