@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
-using MyJournal.Services;
 using MyJournal.Models;
+using MyJournal.Services.Interfaces;
 
 namespace MyJournal.Components.Pages
 {
     public partial class Calendar
     {
-        [Inject] public DatabaseService DbService { get; set; } = default!;
+        [Inject] public IDatabaseService DbService { get; set; } = default!;
         [Inject] public NavigationManager NavManager { get; set; } = default!;
 
         private DateTime displayDate = DateTime.Today;
@@ -56,16 +56,13 @@ namespace MyJournal.Components.Pages
         {
             if (date == null) return;
 
-            // Check if we have an entry for this specific date
             if (entryMap.ContainsKey(date.Value.Date))
             {
                 var entry = entryMap[date.Value.Date];
-                // Navigate directly to the View Page using the GUID
                 NavManager.NavigateTo($"/viewJournal/{entry.Id}");
             }
             else if (date.Value.Date == DateTime.Today)
             {
-                // Optional: If clicking Today but no entry exists, go to Create
                 NavManager.NavigateTo("/todaysJournal");
             }
         }

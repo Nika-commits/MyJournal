@@ -58,7 +58,6 @@ namespace MyJournal.Services
             return await _database!.InsertOrReplaceAsync(item);
         }
 
-
         public async Task<List<Journal>> SearchJournalsAsync(string keyword, string? category = null, string? tag = null)
         {
             await InitAsync();
@@ -81,7 +80,6 @@ namespace MyJournal.Services
 
             return await query.OrderByDescending(j => j.EntryDate).ToListAsync();
         }
-
 
         public async Task<Journal> GetEntryByDateAsync(DateTime date)
         {
