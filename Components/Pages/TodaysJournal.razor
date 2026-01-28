@@ -83,7 +83,20 @@
         </div>
 
         <div class="action-area">
-            <button class="btn-primary full-width" @onclick="SaveEntry">Save Entry</button>
+            <button class="btn-primary full-width @(isSaving ? "btn-disabled" : "")"
+                    @onclick="SaveEntry"
+                    disabled="@isSaving">
+
+                @if (isSaving)
+                {
+                    <span>Saving...</span>
+                }
+                else
+                {
+                    <span>Save Entry</span>
+                }
+            </button>
+
             <button class="btn-secondary full-width" @onclick="Cancel">Cancel</button>
         </div>
     </div>

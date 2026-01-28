@@ -11,11 +11,12 @@ namespace MyJournal.Components.Pages
         [Inject] public IDatabaseService DbService { get; set; } = default!;
         [Inject] public NavigationManager NavManager { get; set; } = default!;
         [Inject] public IToastService Toast { get; set; } = default!;
-
+        
         public Journal CurrentEntry { get; set; } = new Journal();
 
         private bool isLoaded = false;
         private bool IsEditorInitialized = false;
+        private bool isSaving = false;
 
         private string selectedCategory = "Positive";
         private List<string> selectedTags = new();
@@ -64,8 +65,6 @@ namespace MyJournal.Components.Pages
                     Title = "",
                     Content = "",
                 };
-
-
             }
             isLoaded = true;
 
@@ -102,31 +101,46 @@ namespace MyJournal.Components.Pages
             CurrentEntry.Tags = string.Join(",", selectedTags);
         }
 
-        //public void SetMood(string mood)
-        //{
-        //    CurrentEntry.Mood = mood;
-        //}
-
-
         public async Task SaveEntry()
         {
-            if (string.IsNullOrWhiteSpace(CurrentEntry.Title)) return;
-
-            CurrentEntry.Content = await JS.InvokeAsync<string>("getQuillHtml");
-            CurrentEntry.UpdatedAt = DateTime.UtcNow;
-
-            if (string.IsNullOrEmpty(CurrentEntry.MoodCategory) && !string.IsNullOrEmpty(CurrentEntry.PrimaryMood))
+            if (isSaving) return;
+            if (string.IsNullOrWhiteSpace(CurrentEntry.Title))
             {
-                var moodDef = MoodHelperService.AllMoods.FirstOrDefault(m => m.Name == CurrentEntry.PrimaryMood);
-                if (moodDef != null)
-                {
-                    CurrentEntry.MoodCategory = moodDef.Category;
-                }
+                Toast.ShowToast("Please enter a Title for your journal.", ToastLevel.Warning);
+                return;
             }
 
-            await DbService.SaveJournalAsync(CurrentEntry);
+            if (string.IsNullOrEmpty(CurrentEntry.PrimaryMood))
+            {
+                Toast.ShowToast("How are you feeling? Please select a mood.", ToastLevel.Warning);
+                return;
+            }
+            isSaving = true;
             StateHasChanged();
-            Toast.ShowToast($"Saved at {DateTime.Now:HH:mm}");
+            try
+            {
+                CurrentEntry.Content = await JS.InvokeAsync<string>("getQuillHtml");
+                CurrentEntry.UpdatedAt = DateTime.UtcNow;
+
+                if (string.IsNullOrEmpty(CurrentEntry.MoodCategory) && !string.IsNullOrEmpty(CurrentEntry.PrimaryMood))
+                {
+                    var moodDef = MoodHelperService.AllMoods.FirstOrDefault(m => m.Name == CurrentEntry.PrimaryMood);
+                    if (moodDef != null)
+                    {
+                        CurrentEntry.MoodCategory = moodDef.Category;
+                    }
+                }
+
+                await DbService.SaveJournalAsync(CurrentEntry);
+                StateHasChanged();
+                Toast.ShowToast($"Saved at {DateTime.Now:HH:mm}");
+
+            }
+            finally
+            {
+                isSaving = false;
+                StateHasChanged();
+            }
         }
 
         public void Cancel()
